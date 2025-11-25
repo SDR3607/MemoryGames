@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parsha Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <a href="../../landingPage/index.html" class="back-btn">← Back to Menu</a>
+        <h1>Parsha Quiz</h1>
+        <div id="timer" class="timer">05:00</div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="answer-input" placeholder="Type a Parsha name..." autocomplete="off">
+        <div id="message" class="message-box">Name the 54 Parshas!</div>
+        <div id="score">0 / 54</div>
+    </div>
+
+    <div id="game-board" class="parsha-grid">
+    </div>
+</div>
+
+<script src="Parsha.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 const games = [
     { name: "Mishna Quiz", url: "../Quizzes/MishnaQuiz/Mishna.html" },
-    { name: "Quiz 2: Coming Soon", url: "#" },
+    { name: "Parsha Quiz", url: "../Quizzes/ParshaQuiz/Parsha.html" },
     { name: "Quiz 3: Coming Soon", url: "#" }
 ];
 
