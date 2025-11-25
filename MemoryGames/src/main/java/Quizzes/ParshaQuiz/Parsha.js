@@ -1,26 +1,69 @@
 // --- 1. Data Setup ---
 // The 54 Parshas in order
 const PARSHAS = [
-    // Breishis (12)
-    "Breishis", "Noach", "Lech Lecha", "Vayeira", "Chayei Sarah", "Toldos",
-    "Vayetzei", "Vayishlach", "Vayeshev", "Miketz", "Vayigash", "Vayechi",
-    // Shemos (11)
-    "Shemos", "Vaera", "Bo", "Beshalach", "Yisro", "Mishpatim",
-    "Terumah", "Tetzaveh", "Ki Tisa", "Vayakhel", "Pekudei",
-    // Vayikra (10)
-    "Vayikra", "Tzav", "Shemini", "Tazria", "Metzora",
-    "Acharei Mos", "Kedoshim", "Emor", "Behar", "Bechukosai",
-    // Bamidbar (10)
-    "Bamidbar", "Nasso", "Behaaloscha", "Shlach", "Korach",
-    "Chukas", "Balak", "Pinchas", "Mattos", "Masei",
-    // Devarim (11)
-    "Devarim", "Vaeschanan", "Eikev", "Reeh", "Shoftim", "Ki Teitzei",
-    "Ki Tavo", "Nitzavim", "Vayelech", "Haazinu", "Vezos Haberachah"
+    {display: "בראשית", alts: ["בראשית","bereishis", "bereshit", "breishis", "breshis"]},
+    {display: "נח", alts: ["noach", "נח"]},
+    {display: "לך לך", alts: ["lech lecha", "lechlecha", "lech-lecha", "לך לך"]},
+    {display: "וירא", alts: ["vayeira", "vayera", "וירא"]},
+    {display: "חיי שרה", alts: ["chayei sarah", "חיי שרה", "chayei sara", "chaye sara"]},
+    {display: "תולדות", alts: ["toldos", "toldot", "תולדות"]},
+    {display: "ויצא", alts: ["vayetzei", "vayetze", "ויצא"]},
+    {display: "וישלח", alts: ["vayishlach", "וישלח"]},
+    {display: "וישב", alts: ["vayeshev", "וישב"]},
+    {display: "מקץ", alts: ["miketz", "mikeitz", "מקץ"]},
+    {display: "ויגש", alts: ["vayigash", "ויגש"]},
+    {display: "ויחי", alts: ["vayechi", "ויחי"]},
+
+    { display: "שמות", alts: ["shemos", "shemot", "שמות"] },
+    { display: "וארא", alts: ["vaera", "וארא"] },
+    { display: "בא", alts: ["bo", "בא"] },
+    { display: "בשלח", alts: ["beshalach", "בשלח"] },
+    { display: "יתרו", alts: ["yisro", "yitro", "יתרו"] },
+    { display: "משפטים", alts: ["mishpatim", "משפטים"] },
+    { display: "תרומה", alts: ["terumah", "trumah", "תרומה"] },
+    { display: "תצוה", alts: ["tetzaveh", "tetzave", "תצוה"] },
+    { display: "כי תשא", alts: ["ki tisa", "כי תשא"] },
+    { display: "ויקהל", alts: ["vayakhel", "ויקהל"] },
+    { display: "פקודי", alts: ["pekudei", "pekudey", "פקודי"] },
+
+    { display: "ויקרא", alts: ["vayikra", ""] },
+    { display: "צו", alts: ["tzav", "צו"] },
+    { display: "שמיני", alts: ["shemini", "שמיני"] },
+    { display: "תזריע", alts: ["tazria", "תזריע"] },
+    { display: "מצורע", alts: ["metzora", "מצורע"] },
+    { display: "אחרי מות", alts: ["acharei mos", "acharei mot", "אחרי מות"] },
+    { display: "קדושים", alts: ["kedoshim", "קדושים"] },
+    { display: "אמור", alts: ["emor", "אמור"] },
+    { display: "בהר", alts: ["behar", "בהר"] },
+    { display: "בחוקתי", alts: ["bechukosai", "בחוקתי", "bechukotai"] },
+
+    { display: "במדבר", alts: ["bamidbar", "במדבר"] },
+    { display: "נשא", alts: ["nasso", "naso", "נשא"] },
+    { display: "בהעלותך", alts: ["behaaloscha", "בהעלותך", "behaalotecha"] },
+    { display: "שלח", alts: ["shlach", "shelach", "שלח"] },
+    { display: "קרח", alts: ["korach", "קרח"] },
+    { display: "חוקת", alts: ["chukas", "chukat", "חוקת"] },
+    { display: "בלק", alts: ["balak", "בלק"] },
+    { display: "פנחס", alts: ["pinchas", "פנחס"] },
+    { display: "מטות", alts: ["mattos", "matot", "מטות"] },
+    { display: "מעסי", alts: ["masei", "מעסי"] },
+
+    { display: "דברים", alts: ["devarim", "דברים"] },
+    { display: "ואתחנן", alts: ["vaeschanan", "vaetchanan", "ואתחנן"] },
+    { display: "עקב", alts: ["eikev", "עקב"] },
+    { display: "ראה", alts: ["reeh", "re'eh", "ראה"] },
+    { display: "שופטים", alts: ["shoftim", "שופחים"] },
+    { display: "כי תצא", alts: ["ki teitzei", "ki tetzai", "כי תצא"] },
+    { display: "כי תבוא", alts: ["ki tavo", "כי תבוא"] },
+    { display: "נצבים", alts: ["nitzavim", "נצבים"] },
+    { display: "וילך", alts: ["vayelech", "וילך"] },
+    { display: "האזינו", alts: ["haazinu", "האזינו"] },
+    { display: "וזאת הברכה", alts: ["vezos haberachah", "vezot haberacha", "וזאת הברכה"] }
 ];
 
 // 5 Columns for the 5 Books
 const COLUMN_SIZES = [12, 11, 10, 10, 11];
-const TITLES = ["Breishis", "Shemos", "Vayikra", "Bamidbar", "Devarim"];
+const TITLES = ["בראשית", "שמות", "ויקרא", "במדבר", "דברים"];
 
 let correctAnswers = new Set();
 let timeRemaining = 5 * 60; // 5 minutes

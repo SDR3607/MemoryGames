@@ -1,18 +1,82 @@
 // --- 1. Data Setup (Copied from your Java Code) ---
 const TRACTATES = [
-    "Brachos", "Peah", "Demai", "Kilayim", "Sheviis", "Terumos", "Maaseros",
-    "Maaser Sheni", "Challah", "Orlah", "Bikkurim", "Shabbos", "Eruvin", "Pesachim",
-    "Shekalim", "Yoma", "Sukkah", "Beitzah", "Rosh Hashanah", "Taanis", "Megillah",
-    "Moed Katan", "Chagigah", "Yevamos", "Kesubos", "Nedarim", "Nazir", "Sotah",
-    "Gittin", "Kiddushin", "Bava Kama", "Bava Metzia", "Bava Basra", "Sanhedrin",
-    "Makkos", "Shevuos", "Eduyos", "Avodah Zarah", "Avos", "Horayos", "Zevachim",
-    "Menachos", "Chullin", "Bechoros", "Arachin", "Temurah", "Kerisos", "Meilah",
-    "Tamid", "Middos", "Kinim", "Keilim", "Oholos", "Negaim", "Parah", "Tohoros",
-    "Mikvaos", "Niddah", "Machshirin", "Zavim", "Tevul Yom", "Yadayim", "Uktzim"
-];
+    // --- ZERAIM ---
+    { id: "brachos", display: "ברכות", alts: ["brachos", "berachot", "brakhot", "ברכות"] },
+    { id: "peah", display: "פאה", alts: ["peah", "pea", "פאה"] },
+    { id: "demai", display: "דמאי", alts: ["demai", "dmai", "דמאי"] },
+    { id: "kilayim", display: "כלאיים", alts: ["kilayim", "kilaim", "כלאיים", "כלאים"] },
+    { id: "sheviis", display: "שביעית", alts: ["sheviis", "sheviit", "shviis", "שביעית"] },
+    { id: "terumos", display: "תרומות", alts: ["terumos", "terumot", "trumos", "תרומות"] },
+    { id: "maaseros", display: "מעשרות", alts: ["maaseros", "maaserot", "maasrot", "מעשרות"] },
+    { id: "maaser sheni", display: "מעשר שני", alts: ["maaser sheni", "maaser sheni", "מעשר שני"] },
+    { id: "challah", display: "חלה", alts: ["challah", "chala", "halla", "חלה"] },
+    { id: "orlah", display: "ערלה", alts: ["orlah", "orla", "ערלה"] },
+    { id: "bikkurim", display: "ביכורים", alts: ["bikkurim", "bikurim", "ביכורים"] },
 
+    // --- MOED ---
+    { id: "shabbos", display: "שבת", alts: ["shabbos", "shabbat", "shabbes", "שבת"] },
+    { id: "eruvin", display: "עירובין", alts: ["eruvin", "eiruvin", "עירובין"] },
+    { id: "pesachim", display: "פסחים", alts: ["pesachim", "pesahim", "פסחים"] },
+    { id: "shekalim", display: "שקלים", alts: ["shekalim", "shkalim", "שקלים"] },
+    { id: "yoma", display: "יומא", alts: ["yoma", "yuma", "יומא"] },
+    { id: "sukkah", display: "סוכה", alts: ["sukkah", "sukka", "sucah", "סוכה"] },
+    { id: "beitzah", display: "ביצה", alts: ["beitzah", "beitza", "betsa", "ביצה"] },
+    { id: "rosh hashanah", display: "ראש השנה", alts: ["rosh hashanah", "rosh hashana", "ראש השנה"] },
+    { id: "taanis", display: "תענית", alts: ["taanis", "taanit", "תענית"] },
+    { id: "megillah", display: "מגילה", alts: ["megillah", "megila", "מגילה"] },
+    { id: "moed katan", display: "מועד קטן", alts: ["moed katan", "moed katan", "מועד קטן"] },
+    { id: "chagigah", display: "חגיגה", alts: ["chagigah", "chagiga", "hagigah", "חגיגה"] },
+
+    // --- NASHIM ---
+    { id: "yevamos", display: "יבמות", alts: ["yevamos", "yevamot", "יבמות"] },
+    { id: "kesubos", display: "כתובות", alts: ["kesubos", "ketubot", "kesuvos", "כתובות"] },
+    { id: "nedarim", display: "נדרים", alts: ["nedarim", "נדרים"] },
+    { id: "nazir", display: "נזיר", alts: ["nazir", "נזיר"] },
+    { id: "sotah", display: "סוטה", alts: ["sotah", "sota", "סוטה"] },
+    { id: "gittin", display: "גיטין", alts: ["gittin", "gitin", "גיטין"] },
+    { id: "kiddushin", display: "קידושין", alts: ["kiddushin", "kidushin", "קידושין"] },
+
+    // --- NEZIKIN ---
+    { id: "bava kama", display: "בבא קמא", alts: ["bava kama", "bava kamma", "bk", "בבא קמא"] },
+    { id: "bava metzia", display: "בבא מציעא", alts: ["bava metzia", "bava metzia", "bm", "בבא מציעא"] },
+    { id: "bava basra", display: "בבא בתרא", alts: ["bava basra", "bava batra", "bb", "בבא בתרא"] },
+    { id: "sanhedrin", display: "סנהדרין", alts: ["sanhedrin", "sanhedrin", "סנהדרין"] },
+    { id: "makkos", display: "מכות", alts: ["makkos", "makot", "makkot", "מכות"] },
+    { id: "shevuos", display: "שבועות", alts: ["shevuos", "shevuot", "shvuos", "שבועות"] },
+    { id: "eduyos", display: "עדיות", alts: ["eduyos", "eduyot", "ediyot", "עדיות"] },
+    { id: "avodah zarah", display: "עבודה זרה", alts: ["avodah zarah", "avoda zara", "az", "עבודה זרה"] },
+    { id: "avos", display: "אבות", alts: ["avos", "avot", "pirkei avos", "אבות"] },
+    { id: "horayos", display: "הוריות", alts: ["horayos", "horayot", "הוריות"] },
+
+    // --- KODSHIM ---
+    { id: "zevachim", display: "זבחים", alts: ["zevachim", "zevahim", "זבחים"] },
+    { id: "menachos", display: "מנחות", alts: ["menachos", "menachot", "menahot", "מנחות"] },
+    { id: "chullin", display: "חולין", alts: ["chullin", "chulin", "חולין"] },
+    { id: "bechoros", display: "בכורות", alts: ["bechoros", "bechorot", "bekhorot", "בכורות"] },
+    { id: "arachin", display: "ערכין", alts: ["arachin", "arakhin", "ערכין"] },
+    { id: "temurah", display: "תמורה", alts: ["temurah", "temura", "תמורה"] },
+    { id: "kerisos", display: "כריתות", alts: ["kerisos", "keritot", "kritos", "כריתות"] },
+    { id: "meilah", display: "מעילה", alts: ["meilah", "meila", "מעילה"] },
+    { id: "tamid", display: "תמיד", alts: ["tamid", "תמיד"] },
+    { id: "middos", display: "מידות", alts: ["middos", "midot", "middot", "מידות"] },
+    { id: "kinim", display: "קינים", alts: ["kinim", "kinnim", "קינים"] },
+
+    // --- TAHAROS ---
+    { id: "keilim", display: "כלים", alts: ["keilim", "kelim", "כלים"] },
+    { id: "oholos", display: "אוהלות", alts: ["oholos", "oholot", "ahilot", "אוהלות"] },
+    { id: "negaim", display: "נגעים", alts: ["negaim", "nega'im", "נגעים"] },
+    { id: "parah", display: "פרה", alts: ["parah", "para", "פרה"] },
+    { id: "tohoros", display: "טהרות", alts: ["tohoros", "tohorot", "taharos", "טהרות"] },
+    { id: "mikvaos", display: "מקואות", alts: ["mikvaos", "mikvaot", "mikvaos", "מקואות"] },
+    { id: "niddah", display: "נידה", alts: ["niddah", "nida", "nidda", "נידה"] },
+    { id: "machshirin", display: "מכשירין", alts: ["machshirin", "makhshirin", "מכשירין"] },
+    { id: "zavim", display: "זבים", alts: ["zavim", "זבים"] },
+    { id: "tevul yom", display: "טבול יום", alts: ["tevul yom", "tvul yom", "טבול יום"] },
+    { id: "yadayim", display: "ידיים", alts: ["yadayim", "yadaim", "ידיים"] },
+    { id: "uktzim", display: "עוקצים", alts: ["uktzim", "uktsim", "oktzim", "עוקצים"] }
+];
 const COLUMN_SIZES = [11, 12, 7, 10, 11, 12];
-const TITLES = ["Zeraim", "Moed", "Nashim", "Nezikin", "Kodshim", "Taharos"];
+const TITLES = ["זרעים", "מעוד", "נשים", "נזיקין", "קדשים", "טהרות"];
 
 let correctAnswers = new Set();
 let timeRemaining = (6 * 60) + 13; // 6 minutes 13 seconds
@@ -24,29 +88,29 @@ function initGame() {
     const board = document.getElementById('game-board');
     let tractateIndex = 0;
 
-    // Loop through the 6 Sedarim (Columns)
     for (let i = 0; i < COLUMN_SIZES.length; i++) {
-        // Create the Column Div
         const columnDiv = document.createElement('div');
         columnDiv.className = 'seder-column';
 
-        // Add the Title
         const title = document.createElement('div');
         title.className = 'seder-title';
         title.textContent = TITLES[i];
         columnDiv.appendChild(title);
 
-        // Add the slots for this column
         const size = COLUMN_SIZES[i];
         for (let j = 0; j < size; j++) {
             if (tractateIndex < TRACTATES.length) {
-                const tractateName = TRACTATES[tractateIndex];
+                // Get the object
+                const data = TRACTATES[tractateIndex];
 
                 const slot = document.createElement('div');
                 slot.className = 'tractate-slot';
-                slot.textContent = tractateName;
-                // We use a data attribute to find this specific slot later
-                slot.setAttribute('data-name', tractateName.toLowerCase());
+
+                // DISPLAY: Use the Hebrew Name
+                slot.textContent = data.display;
+
+                // ID: Use the safe "id" from the object (e.g., "brachos")
+                slot.setAttribute('data-name', data.id);
 
                 columnDiv.appendChild(slot);
                 tractateIndex++;
@@ -88,47 +152,41 @@ const scoreDisplay = document.getElementById('score');
 inputField.addEventListener('input', function() {
     if (!gameActive) return;
 
+    // Normalize input: lowercase, trim whitespace
     const userInput = this.value.trim().toLowerCase();
 
-    // Check if the input matches ANY tractate
-    // We look for the exact index in our array (case insensitive)
-    const matchIndex = TRACTATES.findIndex(t => t.toLowerCase() === userInput);
+    // Search the alts array of every object
+    const match = TRACTATES.find(t => t.alts.includes(userInput));
 
-    if (matchIndex !== -1) {
-        const officialName = TRACTATES[matchIndex];
-
-        // Check if already answered
-        if (correctAnswers.has(officialName)) {
+    if (match) {
+        // Use the safe ID to track answers
+        if (correctAnswers.has(match.id)) {
             messageBox.textContent = "You already got that one!";
             messageBox.style.color = "orange";
         } else {
-            // Success!
-            correctAnswers.add(officialName);
-            revealAnswer(officialName);
+            // Add the ID to the correct set
+            correctAnswers.add(match.id);
 
-            // Clear input
+            // Reveal using the ID
+            revealAnswer(match.id);
+
             this.value = "";
             messageBox.textContent = "Correct!";
             messageBox.style.color = "green";
 
-            // Update Score
             scoreDisplay.textContent = `${correctAnswers.size} / ${TRACTATES.length}`;
 
-            // Check Win Condition
             if (correctAnswers.size === TRACTATES.length) {
                 endGame(true);
             }
         }
-    } else {
-        messageBox.textContent = "...";
-        messageBox.style.color = "#666";
     }
 });
 
 // --- 5. Helper Functions ---
-function revealAnswer(name) {
-    // Find the slot with the matching data-name
-    const slot = document.querySelector(`.tractate-slot[data-name="${name.toLowerCase()}"]`);
+function revealAnswer(id) {
+    // Find slot by the safe ID
+    const slot = document.querySelector(`.tractate-slot[data-name="${id}"]`);
     if (slot) {
         slot.classList.add('revealed');
     }
@@ -147,12 +205,12 @@ function endGame(won) {
         messageBox.textContent = "Time's up!";
         messageBox.style.color = "red";
 
-        // Reveal missed answers in red
         TRACTATES.forEach(t => {
-            if (!correctAnswers.has(t)) {
-                const slot = document.querySelector(`.tractate-slot[data-name="${t.toLowerCase()}"]`);
+            if (!correctAnswers.has(t.id)) {
+                // Find by ID
+                const slot = document.querySelector(`.tractate-slot[data-name="${t.id}"]`);
                 if (slot) {
-                    slot.classList.add('missed'); // See CSS for 'missed' style
+                    slot.classList.add('missed');
                 }
             }
         });
