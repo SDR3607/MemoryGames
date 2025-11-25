@@ -81,7 +81,7 @@ const TITLES = ["זרעים", "מעוד", "נשים", "נזיקין", "קדשי�
 let correctAnswers = new Set();
 let timeRemaining = (6 * 60) + 13; // 6 minutes 13 seconds
 let timerInterval;
-let gameActive = true;
+let gameActive = false;
 
 // --- 2. Initialize the Game Board ---
 function initGame() {
@@ -118,8 +118,6 @@ function initGame() {
         }
         board.appendChild(columnDiv);
     }
-
-    startTimer();
 }
 
 // --- 3. Timer Logic ---
@@ -145,6 +143,7 @@ function startTimer() {
 }
 
 // --- 4. Input Handling ---
+const controlBtn = document.getElementById('control-btn');
 const inputField = document.getElementById('answer-input');
 const messageBox = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
@@ -183,6 +182,45 @@ inputField.addEventListener('input', function() {
     }
 });
 
+controlBtn.addEventListener('click', () => {
+    if (gameActive) {
+        // If game is running, this button acts as "Give Up"
+        endGame(false);
+    } else {
+        // If game is over or hasn't started, this acts as "Start/Play Again"
+        startGame();
+    }
+});
+
+function startGame() {
+    // 1. Reset Internal State
+    gameActive = true;
+    correctAnswers.clear();
+    timeRemaining = (6 * 60) + 13;
+
+    // 2. Reset Visuals
+    document.getElementById('score').textContent = `0 / ${TRACTATES.length}`;
+    messageBox.textContent = "Go!";
+    messageBox.style.color = "#333";
+    inputField.value = "";
+    inputField.disabled = false;
+    inputField.focus();
+
+    // 3. Button Visuals
+    controlBtn.textContent = "Give Up";
+    controlBtn.classList.add('give-up'); // Turns red
+
+    // 4. Clear the Board (Remove colors)
+    // We select all slots and remove the 'revealed' and 'missed' classes
+    document.querySelectorAll('.answer-slot').forEach(slot => { // Use .tractate-slot for Mishna
+        slot.classList.remove('revealed', 'missed');
+    });
+
+    // 5. Start Timer
+    clearInterval(timerInterval); // Safety clear
+    startTimer();
+}
+
 // --- 5. Helper Functions ---
 function revealAnswer(id) {
     // Find slot by the safe ID
@@ -196,6 +234,9 @@ function endGame(won) {
     gameActive = false;
     clearInterval(timerInterval);
     inputField.disabled = true;
+
+    controlBtn.textContent = "Play Again";
+    controlBtn.classList.remove('give-up');
 
     if (won) {
         messageBox.textContent = "MAZEL TOV! You named them all!";

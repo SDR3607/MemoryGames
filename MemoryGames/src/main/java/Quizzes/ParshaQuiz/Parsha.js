@@ -1,84 +1,87 @@
 // --- 1. Data Setup ---
 // The 54 Parshas in order
 const PARSHAS = [
-    {display: "בראשית", alts: ["בראשית","bereishis", "bereshit", "breishis", "breshis"]},
-    {display: "נח", alts: ["noach", "נח"]},
-    {display: "לך לך", alts: ["lech lecha", "lechlecha", "lech-lecha", "לך לך"]},
-    {display: "וירא", alts: ["vayeira", "vayera", "וירא"]},
-    {display: "חיי שרה", alts: ["chayei sarah", "חיי שרה", "chayei sara", "chaye sara"]},
-    {display: "תולדות", alts: ["toldos", "toldot", "תולדות"]},
-    {display: "ויצא", alts: ["vayetzei", "vayetze", "ויצא"]},
-    {display: "וישלח", alts: ["vayishlach", "וישלח"]},
-    {display: "וישב", alts: ["vayeshev", "וישב"]},
-    {display: "מקץ", alts: ["miketz", "mikeitz", "מקץ"]},
-    {display: "ויגש", alts: ["vayigash", "ויגש"]},
-    {display: "ויחי", alts: ["vayechi", "ויחי"]},
+    // --- BEREISHIS ---
+    { id: "bereishis", display: "בראשית", alts: ["bereishis", "bereshit", "genesis", "בראשית"] },
+    { id: "noach", display: "נח", alts: ["noach", "noah", "נח"] },
+    { id: "lech lecha", display: "לך לך", alts: ["lech lecha", "lechlecha", "lech-lecha", "לך לך"] },
+    { id: "vayeira", display: "וירא", alts: ["vayeira", "vayera", "וירא"] },
+    { id: "chayei sarah", display: "חיי שרה", alts: ["chayei sarah", "chayeisarah", "chaye sara", "חיי שרה"] },
+    { id: "toldos", display: "תולדות", alts: ["toldos", "toldot", "תולדות"] },
+    { id: "vayetzei", display: "ויצא", alts: ["vayetzei", "vayetze", "vayeczei", "ויצא"] },
+    { id: "vayishlach", display: "וישלח", alts: ["vayishlach", "vayishlah", "וישלח"] },
+    { id: "vayeshev", display: "וישב", alts: ["vayeshev", "וישב"] },
+    { id: "miketz", display: "מקץ", alts: ["miketz", "mikeitz", "מקץ"] },
+    { id: "vayigash", display: "ויגש", alts: ["vayigash", "ויגש"] },
+    { id: "vayechi", display: "ויחי", alts: ["vayechi", "vayechi", "ויחי"] },
 
-    { display: "שמות", alts: ["shemos", "shemot", "שמות"] },
-    { display: "וארא", alts: ["vaera", "וארא"] },
-    { display: "בא", alts: ["bo", "בא"] },
-    { display: "בשלח", alts: ["beshalach", "בשלח"] },
-    { display: "יתרו", alts: ["yisro", "yitro", "יתרו"] },
-    { display: "משפטים", alts: ["mishpatim", "משפטים"] },
-    { display: "תרומה", alts: ["terumah", "trumah", "תרומה"] },
-    { display: "תצוה", alts: ["tetzaveh", "tetzave", "תצוה"] },
-    { display: "כי תשא", alts: ["ki tisa", "כי תשא"] },
-    { display: "ויקהל", alts: ["vayakhel", "ויקהל"] },
-    { display: "פקודי", alts: ["pekudei", "pekudey", "פקודי"] },
+    // --- SHEMOS ---
+    { id: "shemos", display: "שמות", alts: ["shemos", "shemot", "exodus", "שמות"] },
+    { id: "vaera", display: "וארא", alts: ["vaera", "va'era", "va-era", "וארא"] },
+    { id: "bo", display: "בא", alts: ["bo", "בא"] },
+    { id: "beshalach", display: "בשלח", alts: ["beshalach", "beshalah", "בשלח"] },
+    { id: "yisro", display: "יתרו", alts: ["yisro", "yitro", "יתרו"] },
+    { id: "mishpatim", display: "משפטים", alts: ["mishpatim", "משפטים"] },
+    { id: "terumah", display: "תרומה", alts: ["terumah", "trumah", "תרומה"] },
+    { id: "tetzaveh", display: "תצוה", alts: ["tetzaveh", "tetzave", "tetsaveh", "תצוה"] },
+    { id: "ki tisa", display: "כי תשא", alts: ["ki tisa", "kitisa", "ki-tisa", "כי תשא"] },
+    { id: "vayakhel", display: "ויקהל", alts: ["vayakhel", "vayakhhel", "ויקהל"] },
+    { id: "pekudei", display: "פקודי", alts: ["pekudei", "pekudey", "פקודי"] },
 
-    { display: "ויקרא", alts: ["vayikra", ""] },
-    { display: "צו", alts: ["tzav", "צו"] },
-    { display: "שמיני", alts: ["shemini", "שמיני"] },
-    { display: "תזריע", alts: ["tazria", "תזריע"] },
-    { display: "מצורע", alts: ["metzora", "מצורע"] },
-    { display: "אחרי מות", alts: ["acharei mos", "acharei mot", "אחרי מות"] },
-    { display: "קדושים", alts: ["kedoshim", "קדושים"] },
-    { display: "אמור", alts: ["emor", "אמור"] },
-    { display: "בהר", alts: ["behar", "בהר"] },
-    { display: "בחוקתי", alts: ["bechukosai", "בחוקתי", "bechukotai"] },
+    // --- VAYIKRA ---
+    { id: "vayikra", display: "ויקרא", alts: ["vayikra", "leviticus", "ויקרא"] },
+    { id: "tzav", display: "צו", alts: ["tzav", "zav", "צו"] },
+    { id: "shemini", display: "שמיני", alts: ["shemini", "shmini", "שמיני"] },
+    { id: "tazria", display: "תזריע", alts: ["tazria", "תזריע"] },
+    { id: "metzora", display: "מצורע", alts: ["metzora", "metsora", "מצורע"] },
+    { id: "acharei mos", display: "אחרי מות", alts: ["acharei mos", "acharei mot", "acharei", "אחרי מות"] },
+    { id: "kedoshim", display: "קדושים", alts: ["kedoshim", "kdoshim", "קדושים"] },
+    { id: "emor", display: "אמור", alts: ["emor", "אמור"] },
+    { id: "behar", display: "בהר", alts: ["behar", "bahar", "בהר"] },
+    { id: "bechukosai", display: "בחוקותי", alts: ["bechukosai", "bechukotai", "bechukosay", "בחוקותי"] },
 
-    { display: "במדבר", alts: ["bamidbar", "במדבר"] },
-    { display: "נשא", alts: ["nasso", "naso", "נשא"] },
-    { display: "בהעלותך", alts: ["behaaloscha", "בהעלותך", "behaalotecha"] },
-    { display: "שלח", alts: ["shlach", "shelach", "שלח"] },
-    { display: "קרח", alts: ["korach", "קרח"] },
-    { display: "חוקת", alts: ["chukas", "chukat", "חוקת"] },
-    { display: "בלק", alts: ["balak", "בלק"] },
-    { display: "פנחס", alts: ["pinchas", "פנחס"] },
-    { display: "מטות", alts: ["mattos", "matot", "מטות"] },
-    { display: "מעסי", alts: ["masei", "מעסי"] },
+    // --- BAMIDBAR ---
+    { id: "bamidbar", display: "במדבר", alts: ["bamidbar", "numbers", "במדבר"] },
+    { id: "nasso", display: "נשא", alts: ["nasso", "naso", "נשא"] },
+    { id: "behaaloscha", display: "בהעלותך", alts: ["behaaloscha", "behaalotecha", "behaalotcha", "beha'aloscha", "בהעלותך"] },
+    { id: "shlach", display: "שלח", alts: ["shlach", "shelach", "shlach lecha", "שלח"] },
+    { id: "korach", display: "קרח", alts: ["korach", "korah", "קרח"] },
+    { id: "chukas", display: "חוקת", alts: ["chukas", "chukat", "hukat", "חוקת"] },
+    { id: "balak", display: "בלק", alts: ["balak", "בלק"] },
+    { id: "pinchas", display: "פינחס", alts: ["pinchas", "pinhas", "פינחס"] },
+    { id: "mattos", display: "מטות", alts: ["mattos", "matot", "מטות"] },
+    { id: "masei", display: "מסעי", alts: ["masei", "massei", "מסעי"] },
 
-    { display: "דברים", alts: ["devarim", "דברים"] },
-    { display: "ואתחנן", alts: ["vaeschanan", "vaetchanan", "ואתחנן"] },
-    { display: "עקב", alts: ["eikev", "עקב"] },
-    { display: "ראה", alts: ["reeh", "re'eh", "ראה"] },
-    { display: "שופטים", alts: ["shoftim", "שופחים"] },
-    { display: "כי תצא", alts: ["ki teitzei", "ki tetzai", "כי תצא"] },
-    { display: "כי תבוא", alts: ["ki tavo", "כי תבוא"] },
-    { display: "נצבים", alts: ["nitzavim", "נצבים"] },
-    { display: "וילך", alts: ["vayelech", "וילך"] },
-    { display: "האזינו", alts: ["haazinu", "האזינו"] },
-    { display: "וזאת הברכה", alts: ["vezos haberachah", "vezot haberacha", "וזאת הברכה"] }
+    // --- DEVARIM ---
+    { id: "devarim", display: "דברים", alts: ["devarim", "deuteronomy", "דברים"] },
+    { id: "vaeschanan", display: "ואתחנן", alts: ["vaeschanan", "vaetchanan", "va'etchanan", "ואתחנן"] },
+    { id: "eikev", display: "עקב", alts: ["eikev", "ekev", "עקב"] },
+    { id: "reeh", display: "ראה", alts: ["reeh", "re'eh", "re-eh", "ראה"] },
+    { id: "shoftim", display: "שופטים", alts: ["shoftim", "shofetim", "שופטים"] },
+    { id: "ki teitzei", display: "כי תצא", alts: ["ki teitzei", "ki tetzai", "ki tetze", "כי תצא"] },
+    { id: "ki tavo", display: "כי תבוא", alts: ["ki tavo", "ki tavo", "ki-tavo", "כי תבוא"] },
+    { id: "nitzavim", display: "נצבים", alts: ["nitzavim", "nitsavim", "נצבים"] },
+    { id: "vayelech", display: "וילך", alts: ["vayelech", "vayeilech", "וילך"] },
+    { id: "haazinu", display: "האזינו", alts: ["haazinu", "ha'azinu", "האזינו"] },
+    { id: "vezos haberachah", display: "וזאת הברכה", alts: ["vezos haberachah", "vezot haberacha", "v'zot haberacha", "vezos", "vezot", "וזאת הברכה"] }
 ];
-
 // 5 Columns for the 5 Books
 const COLUMN_SIZES = [12, 11, 10, 10, 11];
 const TITLES = ["בראשית", "שמות", "ויקרא", "במדבר", "דברים"];
 
 let correctAnswers = new Set();
-let timeRemaining = 5 * 60; // 5 minutes
+let timeRemaining = 6 * 60 + 13; // 6 minutes and 13 seconds
 let timerInterval;
-let gameActive = true;
+let gameActive = false;
 
 // --- 2. Initialize the Game Board ---
 function initGame() {
     const board = document.getElementById('game-board');
     let parshaIndex = 0;
 
-    // Loop through the 5 Chumashim
     for (let i = 0; i < COLUMN_SIZES.length; i++) {
         const columnDiv = document.createElement('div');
-        columnDiv.className = 'book-column'; // Changed class name for clarity
+        columnDiv.className = 'book-column';
 
         const title = document.createElement('div');
         title.className = 'book-title';
@@ -88,15 +91,16 @@ function initGame() {
         const size = COLUMN_SIZES[i];
         for (let j = 0; j < size; j++) {
             if (parshaIndex < PARSHAS.length) {
-                const name = PARSHAS[parshaIndex];
+                const data = PARSHAS[parshaIndex];
 
                 const slot = document.createElement('div');
                 slot.className = 'answer-slot';
-                slot.textContent = name;
-                // Remove spaces/special chars for the data attribute ID matching
-                // e.g., "Lech Lecha" becomes "lechlecha"
-                const cleanName = name.replace(/[^a-zA-Z]/g, "").toLowerCase();
-                slot.setAttribute('data-name', cleanName);
+
+                // Show the Hebrew Name
+                slot.textContent = data.display;
+
+                // Use the English ID for logic
+                slot.setAttribute('data-name', data.id);
 
                 columnDiv.appendChild(slot);
                 parshaIndex++;
@@ -104,10 +108,7 @@ function initGame() {
         }
         board.appendChild(columnDiv);
     }
-
-    startTimer();
 }
-
 // --- 3. Timer Logic (Same as Mishna) ---
 function startTimer() {
     const timerDisplay = document.getElementById('timer');
@@ -123,6 +124,7 @@ function startTimer() {
 }
 
 // --- 4. Input Handling ---
+const controlBtn = document.getElementById('control-btn');
 const inputField = document.getElementById('answer-input');
 const messageBox = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
@@ -130,28 +132,21 @@ const scoreDisplay = document.getElementById('score');
 inputField.addEventListener('input', function() {
     if (!gameActive) return;
 
-    // Normalize user input (remove spaces/apostrophes to match data)
-    // This allows "Beha'aloscha" to match "Behaaloscha"
-    const userInput = this.value.toLowerCase().replace(/[^a-z]/g, "");
+    const userInput = this.value.trim().toLowerCase();
 
-    // Find matching Parsha
-    const matchIndex = PARSHAS.findIndex(p => {
-        const cleanP = p.toLowerCase().replace(/[^a-z]/g, "");
-        return cleanP === userInput;
-    });
+    // Check 'alts' for the user input
+    const match = PARSHAS.find(p => p.alts.includes(userInput));
 
-    if (matchIndex !== -1) {
-        const officialName = PARSHAS[matchIndex];
-        const cleanName = officialName.replace(/[^a-zA-Z]/g, "").toLowerCase();
-
-        if (correctAnswers.has(officialName)) {
+    if (match) {
+        // Track progress using the safe ID
+        if (correctAnswers.has(match.id)) {
             messageBox.textContent = "Already answered!";
             messageBox.style.color = "orange";
         } else {
-            correctAnswers.add(officialName);
+            correctAnswers.add(match.id);
 
-            // Reveal Logic
-            const slot = document.querySelector(`.answer-slot[data-name="${cleanName}"]`);
+            // Reveal using the ID
+            const slot = document.querySelector(`.answer-slot[data-name="${match.id}"]`);
             if (slot) slot.classList.add('revealed');
 
             this.value = "";
@@ -164,11 +159,54 @@ inputField.addEventListener('input', function() {
     }
 });
 
-// --- 5. End Game Logic ---
+controlBtn.addEventListener('click', () => {
+    if (gameActive) {
+        // If game is running, this button acts as "Give Up"
+        endGame(false);
+    } else {
+        // If game is over or hasn't started, this acts as "Start/Play Again"
+        startGame();
+    }
+});
+
+// --- 5. Start Game Logic ---
+function startGame() {
+    // 1. Reset Internal State
+    gameActive = true;
+    correctAnswers.clear();
+    timeRemaining = (6 * 60) + 13;
+
+    // 2. Reset Visuals
+    document.getElementById('score').textContent = `0 / ${PARSHAS.length}`;
+    messageBox.textContent = "Go!";
+    messageBox.style.color = "#333";
+    inputField.value = "";
+    inputField.disabled = false;
+    inputField.focus();
+
+    // 3. Button Visuals
+    controlBtn.textContent = "Give Up";
+    controlBtn.classList.add('give-up'); // Turns red
+
+    // 4. Clear the Board (Remove colors)
+    // We select all slots and remove the 'revealed' and 'missed' classes
+    document.querySelectorAll('.answer-slot').forEach(slot => { // Use .tractate-slot for Mishna
+        slot.classList.remove('revealed', 'missed');
+    });
+
+    // 5. Start Timer
+    clearInterval(timerInterval); // Safety clear
+    startTimer();
+}
+
+// --- 6. End Game Logic ---
 function endGame(won) {
     gameActive = false;
     clearInterval(timerInterval);
     inputField.disabled = true;
+
+    controlBtn.textContent = "Play Again";
+    controlBtn.classList.remove('give-up');
 
     if (won) {
         messageBox.textContent = "MAZEL TOV! You finished the whole Torah!";
@@ -177,10 +215,11 @@ function endGame(won) {
     } else {
         messageBox.textContent = "Time's up!";
         messageBox.style.color = "red";
+
         PARSHAS.forEach(p => {
-            if (!correctAnswers.has(p)) {
-                const cleanName = p.replace(/[^a-zA-Z]/g, "").toLowerCase();
-                const slot = document.querySelector(`.answer-slot[data-name="${cleanName}"]`);
+            // Check if ID is in correctAnswers
+            if (!correctAnswers.has(p.id)) {
+                const slot = document.querySelector(`.answer-slot[data-name="${p.id}"]`);
                 if (slot) slot.classList.add('missed');
             }
         });

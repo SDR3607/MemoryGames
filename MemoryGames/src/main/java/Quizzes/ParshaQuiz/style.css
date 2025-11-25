@@ -93,3 +93,28 @@ body {
     color: #d9534f;
     background-color: #fff;
 }
+
+.start-btn {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background 0.3s;
+}
+
+.start-btn:hover {
+    background-color: #218838;
+}
+
+/* Style for when the button becomes "Give Up" */
+.start-btn.give-up {
+    background-color: #dc3545; /* Red */
+}
+
+.start-btn.give-up:hover {
+    background-color: #c82333;
+}

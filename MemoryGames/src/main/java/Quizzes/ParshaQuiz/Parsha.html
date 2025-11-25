@@ -12,13 +12,15 @@
     <div class="quiz-header">
         <a href="../../LandingPage/index.html" class="back-btn">← Back to Menu</a>
         <h1>Parsha Quiz</h1>
-        <div id="timer" class="timer">05:00</div>
+        <div id="timer" class="timer">06:13</div>
     </div>
 
     <div class="input-area">
-        <input type="text" id="answer-input" placeholder="Type a Parsha name..." autocomplete="off">
-        <div id="message" class="message-box">Name the 54 Parshas!</div>
-        <div id="score">0 / 54</div>
+        <button id="control-btn" class="start-btn">Start Game</button>
+
+        <input type="text" id="answer-input" placeholder="Type answer..." autocomplete="off" disabled>
+        <div id="message" class="message-box">Press Start to Begin!</div>
+        <div id="score">0 / ...</div>
     </div>
 
     <div id="game-board" class="parsha-grid">
