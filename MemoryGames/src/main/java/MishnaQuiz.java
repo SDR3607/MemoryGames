@@ -13,7 +13,7 @@ public class MishnaQuiz {
         "Mikvaos", "Niddah", "Machshirin", "Zavim", "Tevul Yom", "Yadayim", "Uktzim"
     );
     
-     private static final int[] COLUMN_SIZES = {11, 12, 7, 10, 11, 12};
+    private static final int[] COLUMN_SIZES = {11, 12, 7, 10, 11, 12};
     private static final String[] COLUMN_TITLES = {"Zeraim", "Moed", "Nashim", "Nezikin", "Kodshim", "Taharos"};
     private static final Set<String> correctAnswers = new HashSet<>();
     private static final List<List<String>> columns = new ArrayList<>();

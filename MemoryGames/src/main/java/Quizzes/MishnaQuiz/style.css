@@ -1,0 +1,90 @@
+.quiz-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    min-height: 100vh;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #d9534f;
+    background: #fdf0f0;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.input-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#answer-input {
+    font-size: 1.5rem;
+    padding: 10px;
+    width: 300px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.message-box {
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
+
+/* The Grid Layout */
+.mishna-grid {
+    display: flex; /* Creates the columns side-by-side */
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.seder-column {
+    flex: 1; /* Each column takes equal width */
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.seder-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+.tractate-slot {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+    color: transparent; /* Text is hidden initially */
+    background-color: #e9ecef; /* Grey placeholder color */
+    margin-bottom: 4px;
+    border-radius: 3px;
+    height: 20px; /* Fixed height */
+    transition: all 0.3s;
+}
+
+/* Logic class: When an answer is correct, we add this class */
+.tractate-slot.revealed {
+    color: #000; /* Show text */
+    background-color: #d4edda; /* Green background */
+    font-weight: bold;
+}
+
+/* Logic class: When game is lost, we add this to show missed answers */
+.tractate-slot.missed {
+    color: #d9534f; /* Red text */
+    background-color: #fff;
+}
