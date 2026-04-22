@@ -1,7 +1,9 @@
 const games = [
     { name: "Mishna Quiz", url: "../Quizzes/MishnaQuiz/Mishna.html" },
+    { name: "Name the Neviim Quiz", url: "../Quizzes/NameTheNeviimQuiz/NameTheNeviim.html" },
     { name: "Parsha Quiz", url: "../Quizzes/ParshaQuiz/Parsha.html" },
-    { name: "Quiz 3: Coming Soon", url: "#" }
+    { name: "Tanach Quiz", url: "../Quizzes/TanachQuiz/Tanach.html" },
+    { name: "Trei Asar Quiz", url: "../Quizzes/TreiAsarQuiz/TreiAsar.html" },
 ];
 
 // 2. Select the HTML container where we want to put the buttons
