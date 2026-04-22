@@ -7,12 +7,25 @@ A suite of interactive browser-based memory games designed to test and improve k
 ### 1. Mishna Quiz
 * **Goal:** Name all 63 Tractates (Masechtos) of the Mishna.
 * **Time Limit:** 6 minutes, 13 seconds.
-* **Features:** Organize by Seder (Order).
 
-### 2. Parsha Quiz
+### 2. Name the Neviim Quiz
+* **Goal:** Name all 55 Neviim (prophets)
+* **Time Limit:** 6 minutes, 13 seconds
+
+### 3. Parsha Quiz
 * **Goal:** Name all 54 Parshas of the Torah.
 * **Time Limit:** 6 minutes, 13 seconds.
-* **Features:** Organized by Chumash (Book).
+
+### 4. Tanach Quiz
+* **Goal:** Name all 24 Books of Tanach (Torah, Neviim, and Kesuvim).
+* **Time Limit:** 3 minutes.
+
+### 5. Trei Asar Quiz
+* One of the 24 books of Tanach is called Trei Asar, which means 12. There are 12 minor prophets that are included in this book of Tanach.
+* **Goal:** Name all 12 prophets that are included in the Trei Asar.
+* **Time Limit:** 3 minutes.
+
+
 
 ## ✨ Key Features
 
@@ -33,6 +46,9 @@ A suite of interactive browser-based memory games designed to test and improve k
 
 ### More Quizzes
 * The goal is to add more quizzes eventually, building a large database of ways for users to brush up on their Jewish knowledge.
+
+### New Quiz Forms
+* Information can be transmitted in various ways. At this time, Memory Games only challenges users to recite memorized names and titles. I'm considering introducing new quiz formats that will allow users to expand their Jewish knowledge further
 
 ### More Features
 * I'm considering adding features like having an account and keeping track of any user's statistics
