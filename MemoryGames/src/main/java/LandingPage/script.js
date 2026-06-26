@@ -1,4 +1,5 @@
 const games = [
+    { name: "Melachos Quiz", url: "../Quizzes/MelachosQuiz/Melachos.html"},
     { name: "Mishna Quiz", url: "../Quizzes/MishnaQuiz/Mishna.html" },
     { name: "Name the Neviim Quiz", url: "../Quizzes/NameTheNeviimQuiz/NameTheNeviim.html" },
     { name: "Parsha Quiz", url: "../Quizzes/ParshaQuiz/Parsha.html" },
