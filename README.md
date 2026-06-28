@@ -49,10 +49,13 @@ A suite of interactive browser-based memory games designed to test and improve k
 
 ### New Quiz Forms
 * Information can be transmitted in various ways. At this time, Memory Games only challenges users to recite memorized names and titles. I'm considering introducing new quiz formats that will allow users to expand their Jewish knowledge further
+  * For example, I'd like to make a quiz where, given a picture of the land of Israel, the user identifies which part of the land belong to each Shevet/Tribe. 
 
 ### More Features
-* I'm considering adding features like having an account and keeping track of any user's statistics
-  * The point would be to post the fastest time solved for each quiz, like a video game, with the top 5 scores making the leaderboard
+* I'm considering adding features like having an account and keeping track of specifc user statistics.
+  * The point would be to post the fastest time solved for each quiz, like a video game, with the top 5 scores making the leaderboard.
     * A tiebreaker may be decided by which user named more correct answers in order.
   * Another option may be to inform a user when they've beaten their own personal best.
-  * To be clear, in adding this feature, I have no intention of tracking any user's data of any sort. I am solely interested in adding more functionality to the game.
+  * To be clear, in adding this feature, I have no intention of tracking any user's data, other than the players' record time. I am solely interested in adding more functionality to the game.
+* I'd like to add a pause functionality to the timer, to allow a user to step away for just a moment
+  * There would probably be a max of three pauses per game
