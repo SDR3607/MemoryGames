@@ -12,15 +12,23 @@ A suite of interactive browser-based memory games designed to test and improve k
 * **Goal:** Name all 55 Neviim (prophets)
 * **Time Limit:** 6 minutes, 13 seconds
 
-### 3. Parsha Quiz
+### 3. Mishneh Torah Halachos Quiz
+* **Goal:** Name every subset of halachos across all 14 Books of the Mishneh Torah.
+* **Time Limit:** 15 minutes.
+
+### 4. Name the Neviim Quiz
+* **Goal:** Name all 55 Neviim (prophets)
+* **Time Limit:** 6 minutes, 13 seconds
+
+### 5. Parsha Quiz
 * **Goal:** Name all 54 Parshas of the Torah.
 * **Time Limit:** 6 minutes, 13 seconds.
 
-### 4. Tanach Quiz
+### 6. Tanach Quiz
 * **Goal:** Name all 24 Books of Tanach (Torah, Neviim, and Kesuvim).
 * **Time Limit:** 3 minutes.
 
-### 5. Trei Asar Quiz
+### 7. Trei Asar Quiz
 * One of the 24 books of Tanach is called Trei Asar, which means 12. There are 12 minor prophets that are included in this book of Tanach.
 * **Goal:** Name all 12 prophets that are included in the Trei Asar.
 * **Time Limit:** 3 minutes.

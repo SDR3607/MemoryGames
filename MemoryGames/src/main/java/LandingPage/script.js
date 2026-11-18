@@ -1,6 +1,8 @@
 const games = [
     { name: "Melachos Quiz", url: "../Quizzes/MelachosQuiz/Melachos.html"},
     { name: "Mishna Quiz", url: "../Quizzes/MishnaQuiz/Mishna.html" },
+    { name: "Mishneh Torah Books Quiz", url: "../Quizzes/MishnehTorahBooksQuiz/MishnehTorahBooks.html" },
+    { name: "Mishneh Torah Halachos Quiz", url: "../Quizzes/MishnehTorahHalachosQuiz/MishnehTorahHalachos.html" },
     { name: "Name the Neviim Quiz", url: "../Quizzes/NameTheNeviimQuiz/NameTheNeviim.html" },
     { name: "Parsha Quiz", url: "../Quizzes/ParshaQuiz/Parsha.html" },
     { name: "Tanach Quiz", url: "../Quizzes/TanachQuiz/Tanach.html" },
