@@ -7,7 +7,7 @@ class MishnehTorahHalachosQuiz {
         this.messageId = options.messageId || 'message';
         this.scoreId = options.scoreId || 'score';
         this.filterId = options.filterId || 'book-filter';
-        this.defaultTimeSeconds = options.defaultTimeSeconds || 15 * 60;
+        this.defaultTimeSeconds = options.defaultTimeSeconds || 10 * 60;
 
         this.booksData = [
             {

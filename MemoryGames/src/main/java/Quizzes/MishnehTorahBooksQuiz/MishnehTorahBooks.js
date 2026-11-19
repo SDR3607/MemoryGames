@@ -6,7 +6,7 @@ class MishnehTorahBooksQuiz {
         this.inputId = options.inputId || 'answer-input';
         this.messageId = options.messageId || 'message';
         this.scoreId = options.scoreId || 'score';
-        this.defaultTimeSeconds = options.defaultTimeSeconds || 5 * 60;
+        this.defaultTimeSeconds = options.defaultTimeSeconds || 2 * 60;
 
         this.books = [
             { id: "madda", display: "ספר המדע", alts: ["madda", "mada", "hamadda", "sefer madda", "sefer hamadda", "knowledge", "book of knowledge", "מדע", "המדע", "ספר המדע"] },
