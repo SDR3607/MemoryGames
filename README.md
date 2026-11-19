@@ -4,35 +4,38 @@ A suite of interactive browser-based memory games designed to test and improve k
 
 ## 🎮 Live Quizzes
 
-### 1. Mishna Quiz
-* **Goal:** Name all 63 Tractates (Masechtos) of the Mishna.
+### 1. Melachos Quiz
+* **Goal:** Name all 39 categories of Melachos (Shabbat work).
 * **Time Limit:** 6 minutes, 13 seconds.
 
-### 2. Name the Neviim Quiz
-* **Goal:** Name all 55 Neviim (prophets)
-* **Time Limit:** 6 minutes, 13 seconds
+### 2. Mishna Quiz
+* **Goal:** Name all 63 Masechtos (Tractates) of the Mishna.
+* **Time Limit:** 6 minutes, 13 seconds.
 
-### 3. Mishneh Torah Halachos Quiz
+### 3. Mishneh Torah Books Quiz
+* **Goal:** Name all 14 Books (Sefarim) of the Rambam's Mishneh Torah.
+* **Time Limit:** 2 minutes.
+
+### 4. Mishneh Torah Halachos Quiz
 * **Goal:** Name every subset of halachos across all 14 Books of the Mishneh Torah.
-* **Time Limit:** 15 minutes.
+* **Time Limit:** 10 minutes.
 
-### 4. Name the Neviim Quiz
-* **Goal:** Name all 55 Neviim (prophets)
-* **Time Limit:** 6 minutes, 13 seconds
+### 5. Name the Neviim Quiz
+* **Goal:** Name all 55 Neviim (prophets).
+* **Time Limit:** 6 minutes, 13 seconds.
 
-### 5. Parsha Quiz
+### 6. Parsha Quiz
 * **Goal:** Name all 54 Parshas of the Torah.
 * **Time Limit:** 6 minutes, 13 seconds.
 
-### 6. Tanach Quiz
+### 7. Tanach Quiz
 * **Goal:** Name all 24 Books of Tanach (Torah, Neviim, and Kesuvim).
 * **Time Limit:** 3 minutes.
 
-### 7. Trei Asar Quiz
-* One of the 24 books of Tanach is called Trei Asar, which means 12. There are 12 minor prophets that are included in this book of Tanach.
-* **Goal:** Name all 12 prophets that are included in the Trei Asar.
+### 8. Trei Asar Quiz
+* One of the 24 books of Tanach is called *Trei Asar*, which means 12. There are 12 minor prophets that are included in this book of Tanach.
+* **Goal:** Name all 12 prophets that are included in the *Trei Asar*.
 * **Time Limit:** 3 minutes.
-
 
 
 ## ✨ Key Features
@@ -57,7 +60,7 @@ A suite of interactive browser-based memory games designed to test and improve k
 
 ### New Quiz Forms
 * Information can be transmitted in various ways. At this time, Memory Games only challenges users to recite memorized names and titles. I'm considering introducing new quiz formats that will allow users to expand their Jewish knowledge further
-  * For example, I'd like to make a quiz where, given a picture of the land of Israel, the user identifies which part of the land belong to each Shevet/Tribe. 
+  * For example, I'd like to make a quiz where, given a picture of the land of Israel, the user identifies which part of the land belong to each Shevet/Tribe. This is probably very technically challenging, but definitely doable.
 
 ### More Features
 * I'm considering adding features like having an account and keeping track of specifc user statistics.
@@ -65,5 +68,6 @@ A suite of interactive browser-based memory games designed to test and improve k
     * A tiebreaker may be decided by which user named more correct answers in order.
   * Another option may be to inform a user when they've beaten their own personal best.
   * To be clear, in adding this feature, I have no intention of tracking any user's data, other than the players' record time. I am solely interested in adding more functionality to the game.
-* I'd like to add a pause functionality to the timer, to allow a user to step away for just a moment
-  * There would probably be a max of three pauses per game
+* I'd like to add a pause functionality to the timer, to allow a user to step away for just a moment.
+  * There would probably be a max of three pauses per game.
+* I may add the ability to chose to see answers in hebrew vs english. Currently, we only support seeing hebrew answers.
