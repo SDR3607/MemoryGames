@@ -7,7 +7,7 @@ class MishnehTorahHalachosQuiz {
         this.messageId = options.messageId || 'message';
         this.scoreId = options.scoreId || 'score';
         this.filterId = options.filterId || 'book-filter';
-        this.defaultTimeSeconds = options.defaultTimeSeconds || 10 * 60;
+        this.defaultTimeSeconds = options.defaultTimeSeconds || 15 * 60;
 
         this.booksData = [
             {
@@ -68,117 +68,117 @@ class MishnehTorahHalachosQuiz {
                     { id: "issurei_biah", display: "הלכות איסורי ביאה", alts: ["issurei biah", "isuri biah", "issurei bi'ah", "hilchos issurei biah", "hilchot isurei biah", "forbidden relations", "איסורי ביאה", "הלכות איסורי ביאה"] },
             { id: "maachalos_asuros", display: "הלכות מאכלות אסורות", alts: ["maachalos asuros", "maakhalot assurot", "ma'achalos asuros", "hilchos maachalos asuros", "hilchot maakhalot assurot", "forbidden foods", "kashrut", "dietary laws", "מאכלות אסורות", "הלכות מאכלות אסורות"] },
             { id: "shechitah", display: "הלכות שחיטה", alts: ["shechitah", "shechita", "shechitot", "hilchos shechitah", "hilchot shechita", "ritual slaughter", "slaughter", "שחיטה", "הלכות שחיטה"] }
-            ]
-            },
-            {
-                id: "haflaah",
-                    display: "ספר הפלאה (Sefer Hafla'ah)",
-                halachos: [
-                { id: "shevuos", display: "הלכות שבועות", alts: ["shevuos", "shevuot", "shevu'os", "hilchos shevuos", "hilchot shevuot", "oaths", "שבועות", "הלכות שבועות"] },
-                { id: "nedarim", display: "הלכות נדרים", alts: ["nedarim", "hilchos nedarim", "hilchot nedarim", "vows", "נדרים", "הלכות נדרים"] },
-                { id: "neziros", display: "הלכות נזירות", alts: ["neziros", "nezirut", "hilchos neziros", "hilchot nezirut", "nazarite", "nazariteship", "נזירות", "הלכות נזירות"] },
-                { id: "arachin_vcharamim", display: "הלכות ערכין וחרמין", alts: ["arachin vcharamim", "arachin charamim", "erachin vacharamim", "hilchos arachin vcharamim", "hilchot erachin vacharamim", "valuations and devoted property", "appraisals and devoted property", "ערכין וחרמין", "הלכות ערכין וחרמין"] }
-            ]
-            },
-            {
-                id: "zeraim",
-                    display: "ספר זרעים (Sefer Zeraim)",
-                halachos: [
-                { id: "kilayim", display: "הלכות כלאיים", alts: ["kilayim", "kil'ayim", "hilchos kilayim", "hilchot kilayim", "mixed species", "diverse species", "כלאיים", "הלכות כלאיים"] },
-                { id: "matnos_aniyim", display: "הלכות מתנות עניים", alts: ["matnos aniyim", "matnot aniyim", "hilchos matnos aniyim", "hilchot matnot aniyim", "gifts to the poor", "poor gifts", "מתנות עניים", "הלכות מתנות עניים"] },
-                { id: "terumos", display: "הלכות תרומות", alts: ["terumos", "terumot", "trumos", "hilchos terumos", "hilchot terumot", "heave offerings", "terumah", "תרומות", "הלכות תרומות"] },
-                { id: "maasros", display: "הלכות מעשרות", alts: ["maasros", "ma'asros", "maaserot", "hilchos maasros", "hilchot maaserot", "tithes", "מעשרות", "הלכות מעשרות"] },
-                { id: "maaser_sheini_veta_revai", display: "הלכות מעשר שני ונטע רבעי", alts: ["maaser sheini", "ma'aser sheini", "neta revai", "neta reva'i", "hilchos maaser sheini", "hilchot maaser sheni veneta revai", "second tithe", "second tithe and fourth year fruit", "מעשר שני ונטע רבעי", "מעשר שני", "הלכות מעשר שני ונטע רבעי"] },
-                { id: "bikkurim", display: "הלכות ביכורים", alts: ["bikkurim", "bikurim", "hilchos bikkurim", "hilchot bikurim", "first fruits", "ביכורים", "הלכות ביכורים"] },
-                { id: "shemittah_vyovel", display: "הלכות שמיטה ויובל", alts: ["shemittah vyovel", "shemittah yovel", "shemitah veyovel", "hilchos shemittah vyovel", "hilchot shemitah veyovel", "sabbatical and jubilee", "sabbatical and jubilee years", "shmita and yovel", "שמיטה ויובל", "הלכות שמיטה ויובל"] }
-            ]
-            },
-            {
-                id: "avodah",
-                    display: "ספר עבודה (Sefer Avodah)",
-                halachos: [
-                { id: "beis_habechirah", display: "הלכות בית הבחירה", alts: ["beis habechirah", "beit habechirah", "beis ha bechirah", "hilchos beis habechirah", "hilchot beit habechirah", "chosen temple", "the temple", "בית הבחירה", "הלכות בית הבחירה"] },
-                { id: "klei_hamikdash", display: "הלכות כלי המקדש", alts: ["klei hamikdash", "kelei hamikdash", "hilchos klei hamikdash", "hilchot klei hamikdash", "vessels of the sanctuary", "temple vessels", "כלי המקדש", "הלכות כלי המקדש"] },
-                { id: "bias_hamikdash", display: "הלכות ביאת המקדש", alts: ["bias hamikdash", "biat hamikdash", "bi'as hamikdash", "hilchos bias hamikdash", "hilchot biat hamikdash", "entering the sanctuary", "entry into the sanctuary", "ביאת המקדש", "הלכות ביאת המקדש"] },
-                { id: "issurei_hamizbeach", display: "הלכות איסורי המזבח", alts: ["issurei hamizbeach", "isurei hamizbeach", "hilchos issurei hamizbeach", "hilchot isurei hamizbeach", "things forbidden on the altar", "altar prohibitions", "איסורי המזבח", "הלכות איסורי המזבח"] },
-                { id: "maaseh_hakorbanos", display: "הלכות מעשה הקרבנות", alts: ["maaseh hakorbanos", "maaseh hakorbanot", "ma'aseh hakorbanos", "hilchos maaseh hakorbanos", "hilchot maaseh hakorbanot", "sacrificial procedure", "procedure of offerings", "מעשה הקרבנות", "הלכות מעשה הקרבנות"] },
-                { id: "temidim_umusafim", display: "הלכות תמידים ומוספין", alts: ["temidim umusafim", "temidim musafim", "tamid umusaf", "hilchos temidim umusafim", "hilchot temidim umusafim", "daily and additional offerings", "tamid and musaf", "תמידים ומוספין", "הלכות תמידים ומוספין"] },
-                { id: "pesulei_hamukdashin", display: "הלכות פסולי המוקדשין", alts: ["pesulei hamukdashin", "pesulei hamukdashim", "hilchos pesulei hamukdashin", "hilchot pesulei hamukdashim", "disqualified consecrated offerings", "invalid offerings", "פסולי המוקדשין", "הלכות פסולי המוקדשין"] },
-                { id: "avodas_yom_hakippurim", display: "הלכות עבודת יום הכיפורים", alts: ["avodas yom hakippurim", "avodat yom hakippurim", "hilchos avodas yom hakippurim", "hilchot avodat yom hakippurim", "yom kippur service", "yom kippur temple service", "עבודת יום הכיפורים", "הלכות עבודת יום הכיפורים"] },
-                { id: "meilah", display: "הלכות מעילה", alts: ["meilah", "me'ilah", "hilchos meilah", "hilchot meilah", "trespass", "sacrilege", "misuse of sacred property", "מעילה", "הלכות מעילה"] }
-            ]
-            },
-            {
-                id: "korbanos",
-                    display: "ספר קורבנות (Sefer Korbanos)",
-                halachos: [
-                { id: "korban_pesach", display: "הלכות קרבן פסח", alts: ["korban pesach", "korban pesah", "hilchos korban pesach", "hilchot korban pesach", "paschal offering", "passover offering", "קרבן פסח", "קורבן פסח", "הלכות קרבן פסח"] },
-                { id: "chagigah", display: "הלכות חגיגה", alts: ["chagigah", "chagiga", "hagigah", "hilchos chagigah", "hilchot chagigah", "festival offering", "חגיגה", "הלכות חגיגה"] },
-                { id: "bechoros", display: "הלכות בכורות", alts: ["bechoros", "bechorot", "hilchos bechoros", "hilchot bechorot", "firstlings", "firstborn animals", "בכורות", "הלכות בכורות"] },
-                { id: "shegagos", display: "הלכות שגגות", alts: ["shegagos", "shegagot", "hilchos shegagos", "hilchot shegagot", "unintentional transgressions", "inadvertent sins", "שגגות", "הלכות שגגות"] },
-                { id: "mechussarei_kapparah", display: "הלכות מחוסרי כפרה", alts: ["mechussarei kapparah", "mechussarei kaparah", "mechusrei kaparah", "hilchos mechussarei kapparah", "hilchot mechusrei kaparah", "incomplete atonement", "offerings for incomplete atonement", "מחוסרי כפרה", "הלכות מחוסרי כפרה"] },
-                { id: "temurah", display: "הלכות תמורה", alts: ["temurah", "temura", "hilchos temurah", "hilchot temura", "substitution", "substitution of offerings", "תמורה", "הלכות תמורה"] }
-            ]
-            },
-            {
-                id: "taharah",
-                    display: "ספר טהרה (Sefer Taharah)",
-                halachos: [
-                { id: "tumas_meis", display: "הלכות טומאת מת", alts: ["tumas meis", "tumat met", "tum'as meis", "hilchos tumas meis", "hilchot tumat met", "corpse defilement", "corpse impurity", "טומאת מת", "הלכות טומאת מת"] },
-                { id: "parah_adumah", display: "הלכות פרה אדומה", alts: ["parah adumah", "para aduma", "hilchos parah adumah", "hilchot parah aduma", "red heifer", "פרה אדומה", "הלכות פרה אדומה"] },
-                { id: "tumas_tzaraas", display: "הלכות טומאת צרעת", alts: ["tumas tzaraas", "tumat tzaraat", "tumat zaraat", "hilchos tumas tzaraas", "hilchot tumat tzaraat", "tzaraat", "tzara'at", "leprosy defilement", "טומאת צרעת", "הלכות טומאת צרעת"] },
-                { id: "metamei_mishkav_umoshav", display: "הלכות מטמאי משכב ומושב", alts: ["metamei mishkav umoshav", "metamei mishkav umoshav", "hilchos metamei mishkav umoshav", "defilement of bed or seat", "defilement of couch and seat", "מטמאי משכב ומושב", "הלכות מטמאי משכב ומושב"] },
-                { id: "shear_avos_hatumos", display: "הלכות שאר אבות הטומאות", alts: ["shear avos hatumos", "shear avot hatumot", "she'ar avos hatumos", "hilchos shear avos hatumos", "other primary sources of defilement", "שאר אבות הטומאות", "הלכות שאר אבות הטומאות"] },
-                { id: "tumas_ochalin", display: "הלכות טומאת אוכלין", alts: ["tumas ochalin", "tumat ochalin", "tum'as ochalin", "hilchos tumas ochalin", "hilchot tumat ochalin", "defilement of foods", "food impurity", "טומאת אוכלין", "הלכות טומאת אוכלין"] },
-                { id: "keilim", display: "הלכות כלים", alts: ["keilim", "kelim", "hilchos keilim", "hilchot kelim", "vessels", "utensils", "כלים", "הלכות כלים"] },
-                { id: "mikvaos", display: "הלכות מקוואות", alts: ["mikvaos", "mikvaot", "mikva'os", "mikveh", "mikvah", "hilchos mikvaos", "hilchot mikvaot", "immersion pools", "ritual baths", "מקוואות", "מקוות", "הלכות מקוואות"] }
-            ]
-            },
-            {
-                id: "nezikin",
-                    display: "ספר נזיקין (Sefer Nezikin)",
-                halachos: [
-                { id: "nizkei_mamon", display: "הלכות נזקי ממון", alts: ["nizkei mamon", "nizkei mammon", "hilchos nizkei mamon", "hilchot nizkei mammon", "property damages", "damages to property", "נזקי ממון", "הלכות נזקי ממון"] },
-                { id: "geneivah", display: "הלכות גניבה", alts: ["geneivah", "geneiva", "gneiva", "hilchos geneivah", "hilchot geneiva", "theft", "גניבה", "הלכות גניבה"] },
-                { id: "gezeilah_vaaveidah", display: "הלכות גזילה ואבידה", alts: ["gezeilah vaaveidah", "gezeilah aveidah", "gezel vaaveidah", "hilchos gezeilah vaaveidah", "hilchot gezel vaaveidah", "robbery and lost property", "robbery and lost items", "גזילה ואבידה", "גזלה ואבדה", "הלכות גזילה ואבידה"] },
-                { id: "chovel_umazik", display: "הלכות חובל ומזיק", alts: ["chovel umazik", "chovel umezik", "hilchos chovel umazik", "hilchot chovel umezik", "bodily injury and property damage", "wounding and damaging", "חובל ומזיק", "הלכות חובל ומזיק"] },
-                { id: "rotzeach_ushmiras_nefesh", display: "הלכות רוצח ושמירת נפש", alts: ["rotzeach ushmiras nefesh", "rotzeach shmiras nefesh", "rotzeach ushmirat nefesh", "hilchos rotzeach ushmiras nefesh", "hilchot rotzeach ushmirat nefesh", "murder and preservation of life", "murder and guarding life", "רוצח ושמירת נפש", "הלכות רוצח ושמירת נפש"] }
-            ]
-            },
-            {
-                id: "kinyan",
-                    display: "ספר קניין (Sefer Kinyan)",
-                halachos: [
-                { id: "mechirah", display: "הלכות מכירה", alts: ["mechirah", "mechira", "mechirat", "hilchos mechirah", "hilchot mechira", "sales", "buying and selling", "מכירה", "הלכות מכירה"] },
-                { id: "zechiyah_umatanah", display: "הלכות זכייה ומתנה", alts: ["zechiyah umatanah", "zechiyah matanah", "zechiya umatana", "hilchos zechiyah umatanah", "hilchot zechiya umatana", "acquiring ownerless property and gifts", "ownerless property and gifts", "זכייה ומתנה", "זכיה ומתנה", "הלכות זכייה ומתנה"] },
-                { id: "shecheinim", display: "הלכות שכנים", alts: ["shecheinim", "shechenim", "shcheinim", "hilchos shecheinim", "hilchot shechenim", "neighbors", "שכנים", "הלכות שכנים"] },
-                { id: "shluchin_vshutafin", display: "הלכות שלוחין ושותפין", alts: ["shluchin vshutafin", "shluchin shutafin", "shluchin veshutafin", "hilchos shluchin vshutafin", "hilchot shluchin veshutafin", "agents and partners", "agency and partnership", "שלוחין ושותפין", "הלכות שלוחין ושותפין"] },
-                { id: "avadim", display: "הלכות עבדים", alts: ["avadim", "hilchos avadim", "hilchot avadim", "slaves", "servants", "עבדים", "הלכות עבדים"] }
-            ]
-            },
-            {
-                id: "mishpatim",
-                    display: "ספר משפטים (Sefer Mishpatim)",
-                halachos: [
-                { id: "sechirus", display: "הלכות שכירות", alts: ["sechirus", "sechirut", "hilchos sechirus", "hilchot sechirut", "hiring", "leasing", "rental", "שכירות", "הלכות שכירות"] },
-                { id: "sheilah_upikadon", display: "הלכות שאלה ופיקדון", alts: ["sheilah upikadon", "sheilah pikadon", "she'ilah upikadon", "hilchos sheilah upikadon", "hilchot sheilah upikadon", "borrowing and deposit", "loans and bailments", "שאלה ופיקדון", "הלכות שאלה ופיקדון"] },
-                { id: "malveh_vloveh", display: "הלכות מלווה ולווה", alts: ["malveh vloveh", "malveh loveh", "malveh veloveh", "hilchos malveh vloveh", "hilchot malveh veloveh", "creditor and debtor", "lender and borrower", "מלווה ולווה", "מלוה ולוה", "הלכות מלווה ולווה"] },
-                { id: "toen_vnitan", display: "הלכות טוען ונטען", alts: ["toen vnitan", "toen nitan", "to'en venitan", "hilchos toen vnitan", "hilchot toen venitan", "plaintiff and defendant", "claims and pleas", "טוען ונטען", "הלכות טוען ונטען"] },
-                { id: "nachalos", display: "הלכות נחלות", alts: ["nachalos", "nachalot", "hilchos nachalos", "hilchot nachalot", "inheritances", "inheritance", "נחלות", "הלכות נחלות"] }
-            ]
-            },
-            {
-                id: "shoftim",
-                    display: "ספר שופטים (Sefer Shoftim)",
-                halachos: [
-                { id: "sanhedrin", display: "הלכות סנהדרין והעונשין המסורין להם", alts: ["sanhedrin", "hilchos sanhedrin", "hilchot sanhedrin", "sanhedrin and penalties", "courts and penalties", "סנהדרין", "הלכות סנהדרין", "הלכות סנהדרין והעונשין המסורין להם"] },
-                { id: "edus", display: "הלכות עדות", alts: ["edus", "edut", "hilchos edus", "hilchot edut", "testimony", "witnesses", "עדות", "הלכות עדות"] },
-                { id: "mamrim", display: "הלכות ממרים", alts: ["mamrim", "hilchos mamrim", "hilchot mamrim", "rebels", "rebellious elders", "ממרים", "הלכות ממרים"] },
-                { id: "avel", display: "הלכות אבל", alts: ["avel", "hilchos avel", "hilchot avel", "mourning", "אבל", "הלכות אבל"] },
-                { id: "melachim_umilchamos", display: "הלכות מלכים ומלחמות", alts: ["melachim umilchamos", "melachim milchamos", "melachim umilchamot", "hilchos melachim umilchamos", "hilchot melachim umilchamot", "kings and wars", "laws of kings and wars", "מלכים ומלחמות", "הלכות מלכים ומלחמות"] }
-            ]
-            }
-        ];
+        ]
+    },
+        {
+            id: "haflaah",
+                display: "ספר הפלאה (Sefer Hafla'ah)",
+            halachos: [
+            { id: "shevuos", display: "הלכות שבועות", alts: ["shevuos", "shevuot", "shevu'os", "hilchos shevuos", "hilchot shevuot", "oaths", "שבועות", "הלכות שבועות"] },
+            { id: "nedarim", display: "הלכות נדרים", alts: ["nedarim", "hilchos nedarim", "hilchot nedarim", "vows", "נדרים", "הלכות נדרים"] },
+            { id: "neziros", display: "הלכות נזירות", alts: ["neziros", "nezirut", "hilchos neziros", "hilchot nezirut", "nazarite", "nazariteship", "נזירות", "הלכות נזירות"] },
+            { id: "arachin_vcharamim", display: "הלכות ערכין וחרמין", alts: ["arachin vcharamim", "arachin charamim", "erachin vacharamim", "hilchos arachin vcharamim", "hilchot erachin vacharamim", "valuations and devoted property", "appraisals and devoted property", "ערכין וחרמין", "הלכות ערכין וחרמין"] }
+        ]
+        },
+        {
+            id: "zeraim",
+                display: "ספר זרעים (Sefer Zeraim)",
+            halachos: [
+            { id: "kilayim", display: "הלכות כלאיים", alts: ["kilayim", "kil'ayim", "hilchos kilayim", "hilchot kilayim", "mixed species", "diverse species", "כלאיים", "הלכות כלאיים"] },
+            { id: "matnos_aniyim", display: "הלכות מתנות עניים", alts: ["matnos aniyim", "matnot aniyim", "hilchos matnos aniyim", "hilchot matnot aniyim", "gifts to the poor", "poor gifts", "מתנות עניים", "הלכות מתנות עניים"] },
+            { id: "terumos", display: "הלכות תרומות", alts: ["terumos", "terumot", "trumos", "hilchos terumos", "hilchot terumot", "heave offerings", "terumah", "תרומות", "הלכות תרומות"] },
+            { id: "maasros", display: "הלכות מעשרות", alts: ["maasros", "ma'asros", "maaserot", "hilchos maasros", "hilchot maaserot", "tithes", "מעשרות", "הלכות מעשרות"] },
+            { id: "maaser_sheini_veta_revai", display: "הלכות מעשר שני ונטע רבעי", alts: ["maaser sheini", "ma'aser sheini", "neta revai", "neta reva'i", "hilchos maaser sheini", "hilchot maaser sheni veneta revai", "second tithe", "second tithe and fourth year fruit", "מעשר שני ונטע רבעי", "מעשר שני", "הלכות מעשר שני ונטע רבעי"] },
+            { id: "bikkurim", display: "הלכות ביכורים", alts: ["bikkurim", "bikurim", "hilchos bikkurim", "hilchot bikurim", "first fruits", "ביכורים", "הלכות ביכורים"] },
+            { id: "shemittah_vyovel", display: "הלכות שמיטה ויובל", alts: ["shemittah vyovel", "shemittah yovel", "shemitah veyovel", "hilchos shemittah vyovel", "hilchot shemitah veyovel", "sabbatical and jubilee", "sabbatical and jubilee years", "shmita and yovel", "שמיטה ויובל", "הלכות שמיטה ויובל"] }
+        ]
+        },
+        {
+            id: "avodah",
+                display: "ספר עבודה (Sefer Avodah)",
+            halachos: [
+            { id: "beis_habechirah", display: "הלכות בית הבחירה", alts: ["beis habechirah", "beit habechirah", "beis ha bechirah", "hilchos beis habechirah", "hilchot beit habechirah", "chosen temple", "the temple", "בית הבחירה", "הלכות בית הבחירה"] },
+            { id: "klei_hamikdash", display: "הלכות כלי המקדש", alts: ["klei hamikdash", "kelei hamikdash", "hilchos klei hamikdash", "hilchot klei hamikdash", "vessels of the sanctuary", "temple vessels", "כלי המקדש", "הלכות כלי המקדש"] },
+            { id: "bias_hamikdash", display: "הלכות ביאת המקדש", alts: ["bias hamikdash", "biat hamikdash", "bi'as hamikdash", "hilchos bias hamikdash", "hilchot biat hamikdash", "entering the sanctuary", "entry into the sanctuary", "ביאת המקדש", "הלכות ביאת המקדש"] },
+            { id: "issurei_hamizbeach", display: "הלכות איסורי המזבח", alts: ["issurei hamizbeach", "isurei hamizbeach", "hilchos issurei hamizbeach", "hilchot isurei hamizbeach", "things forbidden on the altar", "altar prohibitions", "איסורי המזבח", "הלכות איסורי המזבח"] },
+            { id: "maaseh_hakorbanos", display: "הלכות מעשה הקרבנות", alts: ["maaseh hakorbanos", "maaseh hakorbanot", "ma'aseh hakorbanos", "hilchos maaseh hakorbanos", "hilchot maaseh hakorbanot", "sacrificial procedure", "procedure of offerings", "מעשה הקרבנות", "הלכות מעשה הקרבנות"] },
+            { id: "temidim_umusafim", display: "הלכות תמידים ומוספין", alts: ["temidim umusafim", "temidim musafim", "tamid umusaf", "hilchos temidim umusafim", "hilchot temidim umusafim", "daily and additional offerings", "tamid and musaf", "תמידים ומוספין", "הלכות תמידים ומוספין"] },
+            { id: "pesulei_hamukdashin", display: "הלכות פסולי המוקדשין", alts: ["pesulei hamukdashin", "pesulei hamukdashim", "hilchos pesulei hamukdashin", "hilchot pesulei hamukdashim", "disqualified consecrated offerings", "invalid offerings", "פסולי המוקדשין", "הלכות פסולי המוקדשין"] },
+            { id: "avodas_yom_hakippurim", display: "הלכות עבודת יום הכיפורים", alts: ["avodas yom hakippurim", "avodat yom hakippurim", "hilchos avodas yom hakippurim", "hilchot avodat yom hakippurim", "yom kippur service", "yom kippur temple service", "עבודת יום הכיפורים", "הלכות עבודת יום הכיפורים"] },
+            { id: "meilah", display: "הלכות מעילה", alts: ["meilah", "me'ilah", "hilchos meilah", "hilchot meilah", "trespass", "sacrilege", "misuse of sacred property", "מעילה", "הלכות מעילה"] }
+        ]
+        },
+        {
+            id: "korbanos",
+                display: "ספר קורבנות (Sefer Korbanos)",
+            halachos: [
+            { id: "korban_pesach", display: "הלכות קרבן פסח", alts: ["korban pesach", "korban pesah", "hilchos korban pesach", "hilchot korban pesach", "paschal offering", "passover offering", "קרבן פסח", "קורבן פסח", "הלכות קרבן פסח"] },
+            { id: "chagigah", display: "הלכות חגיגה", alts: ["chagigah", "chagiga", "hagigah", "hilchos chagigah", "hilchot chagigah", "festival offering", "חגיגה", "הלכות חגיגה"] },
+            { id: "bechoros", display: "הלכות בכורות", alts: ["bechoros", "bechorot", "hilchos bechoros", "hilchot bechorot", "firstlings", "firstborn animals", "בכורות", "הלכות בכורות"] },
+            { id: "shegagos", display: "הלכות שגגות", alts: ["shegagos", "shegagot", "hilchos shegagos", "hilchot shegagot", "unintentional transgressions", "inadvertent sins", "שגגות", "הלכות שגגות"] },
+            { id: "mechussarei_kapparah", display: "הלכות מחוסרי כפרה", alts: ["mechussarei kapparah", "mechussarei kaparah", "mechusrei kaparah", "hilchos mechussarei kapparah", "hilchot mechusrei kaparah", "incomplete atonement", "offerings for incomplete atonement", "מחוסרי כפרה", "הלכות מחוסרי כפרה"] },
+            { id: "temurah", display: "הלכות תמורה", alts: ["temurah", "temura", "hilchos temurah", "hilchot temura", "substitution", "substitution of offerings", "תמורה", "הלכות תמורה"] }
+        ]
+        },
+        {
+            id: "taharah",
+                display: "ספר טהרה (Sefer Taharah)",
+            halachos: [
+            { id: "tumas_meis", display: "הלכות טומאת מת", alts: ["tumas meis", "tumat met", "tum'as meis", "hilchos tumas meis", "hilchot tumat met", "corpse defilement", "corpse impurity", "טומאת מת", "הלכות טומאת מת"] },
+            { id: "parah_adumah", display: "הלכות פרה אדומה", alts: ["parah adumah", "para aduma", "hilchos parah adumah", "hilchot parah aduma", "red heifer", "פרה אדומה", "הלכות פרה אדומה"] },
+            { id: "tumas_tzaraas", display: "הלכות טומאת צרעת", alts: ["tumas tzaraas", "tumat tzaraat", "tumat zaraat", "hilchos tumas tzaraas", "hilchot tumat tzaraat", "tzaraat", "tzara'at", "leprosy defilement", "טומאת צרעת", "הלכות טומאת צרעת"] },
+            { id: "metamei_mishkav_umoshav", display: "הלכות מטמאי משכב ומושב", alts: ["metamei mishkav umoshav", "metamei mishkav umoshav", "hilchos metamei mishkav umoshav", "defilement of bed or seat", "defilement of couch and seat", "מטמאי משכב ומושב", "הלכות מטמאי משכב ומושב"] },
+            { id: "shear_avos_hatumos", display: "הלכות שאר אבות הטומאות", alts: ["shear avos hatumos", "shear avot hatumot", "she'ar avos hatumos", "hilchos shear avos hatumos", "other primary sources of defilement", "שאר אבות הטומאות", "הלכות שאר אבות הטומאות"] },
+            { id: "tumas_ochalin", display: "הלכות טומאת אוכלין", alts: ["tumas ochalin", "tumat ochalin", "tum'as ochalin", "hilchos tumas ochalin", "hilchot tumat ochalin", "defilement of foods", "food impurity", "טומאת אוכלין", "הלכות טומאת אוכלין"] },
+            { id: "keilim", display: "הלכות כלים", alts: ["keilim", "kelim", "hilchos keilim", "hilchot kelim", "vessels", "utensils", "כלים", "הלכות כלים"] },
+            { id: "mikvaos", display: "הלכות מקוואות", alts: ["mikvaos", "mikvaot", "mikva'os", "mikveh", "mikvah", "hilchos mikvaos", "hilchot mikvaot", "immersion pools", "ritual baths", "מקוואות", "מקוות", "הלכות מקוואות"] }
+        ]
+        },
+        {
+            id: "nezikin",
+                display: "ספר נזיקין (Sefer Nezikin)",
+            halachos: [
+            { id: "nizkei_mamon", display: "הלכות נזקי ממון", alts: ["nizkei mamon", "nizkei mammon", "hilchos nizkei mamon", "hilchot nizkei mammon", "property damages", "damages to property", "נזקי ממון", "הלכות נזקי ממון"] },
+            { id: "geneivah", display: "הלכות גניבה", alts: ["geneivah", "geneiva", "gneiva", "hilchos geneivah", "hilchot geneiva", "theft", "גניבה", "הלכות גניבה"] },
+            { id: "gezeilah_vaaveidah", display: "הלכות גזילה ואבידה", alts: ["gezeilah vaaveidah", "gezeilah aveidah", "gezel vaaveidah", "hilchos gezeilah vaaveidah", "hilchot gezel vaaveidah", "robbery and lost property", "robbery and lost items", "גזילה ואבידה", "גזלה ואבדה", "הלכות גזילה ואבידה"] },
+            { id: "chovel_umazik", display: "הלכות חובל ומזיק", alts: ["chovel umazik", "chovel umezik", "hilchos chovel umazik", "hilchot chovel umezik", "bodily injury and property damage", "wounding and damaging", "חובל ומזיק", "הלכות חובל ומזיק"] },
+            { id: "rotzeach_ushmiras_nefesh", display: "הלכות רוצח ושמירת נפש", alts: ["rotzeach ushmiras nefesh", "rotzeach shmiras nefesh", "rotzeach ushmirat nefesh", "hilchos rotzeach ushmiras nefesh", "hilchot rotzeach ushmirat nefesh", "murder and preservation of life", "murder and guarding life", "רוצח ושמירת נפש", "הלכות רוצח ושמירת נפש"] }
+        ]
+        },
+        {
+            id: "kinyan",
+                display: "ספר קניין (Sefer Kinyan)",
+            halachos: [
+            { id: "mechirah", display: "הלכות מכירה", alts: ["mechirah", "mechira", "mechirat", "hilchos mechirah", "hilchot mechira", "sales", "buying and selling", "מכירה", "הלכות מכירה"] },
+            { id: "zechiyah_umatanah", display: "הלכות זכייה ומתנה", alts: ["zechiyah umatanah", "zechiyah matanah", "zechiya umatana", "hilchos zechiyah umatanah", "hilchot zechiya umatana", "acquiring ownerless property and gifts", "ownerless property and gifts", "זכייה ומתנה", "זכיה ומתנה", "הלכות זכייה ומתנה"] },
+            { id: "shecheinim", display: "הלכות שכנים", alts: ["shecheinim", "shechenim", "shcheinim", "hilchos shecheinim", "hilchot shechenim", "neighbors", "שכנים", "הלכות שכנים"] },
+            { id: "shluchin_vshutafin", display: "הלכות שלוחין ושותפין", alts: ["shluchin vshutafin", "shluchin shutafin", "shluchin veshutafin", "hilchos shluchin vshutafin", "hilchot shluchin veshutafin", "agents and partners", "agency and partnership", "שלוחין ושותפין", "הלכות שלוחין ושותפין"] },
+            { id: "avadim", display: "הלכות עבדים", alts: ["avadim", "hilchos avadim", "hilchot avadim", "slaves", "servants", "עבדים", "הלכות עבדים"] }
+        ]
+        },
+        {
+            id: "mishpatim",
+                display: "ספר משפטים (Sefer Mishpatim)",
+            halachos: [
+            { id: "sechirus", display: "הלכות שכירות", alts: ["sechirus", "sechirut", "hilchos sechirus", "hilchot sechirut", "hiring", "leasing", "rental", "שכירות", "הלכות שכירות"] },
+            { id: "sheilah_upikadon", display: "הלכות שאלה ופיקדון", alts: ["sheilah upikadon", "sheilah pikadon", "she'ilah upikadon", "hilchos sheilah upikadon", "hilchot sheilah upikadon", "borrowing and deposit", "loans and bailments", "שאלה ופיקדון", "הלכות שאלה ופיקדון"] },
+            { id: "malveh_vloveh", display: "הלכות מלווה ולווה", alts: ["malveh vloveh", "malveh loveh", "malveh veloveh", "hilchos malveh vloveh", "hilchot malveh veloveh", "creditor and debtor", "lender and borrower", "מלווה ולווה", "מלוה ולוה", "הלכות מלווה ולווה"] },
+            { id: "toen_vnitan", display: "הלכות טוען ונטען", alts: ["toen vnitan", "toen nitan", "to'en venitan", "hilchos toen vnitan", "hilchot toen venitan", "plaintiff and defendant", "claims and pleas", "טוען ונטען", "הלכות טוען ונטען"] },
+            { id: "nachalos", display: "הלכות נחלות", alts: ["nachalos", "nachalot", "hilchos nachalos", "hilchot nachalot", "inheritances", "inheritance", "נחלות", "הלכות נחלות"] }
+        ]
+        },
+        {
+            id: "shoftim",
+                display: "ספר שופטים (Sefer Shoftim)",
+            halachos: [
+            { id: "sanhedrin", display: "הלכות סנהדרין והעונשין המסורין להם", alts: ["sanhedrin", "hilchos sanhedrin", "hilchot sanhedrin", "sanhedrin and penalties", "courts and penalties", "סנהדרין", "הלכות סנהדרין", "הלכות סנהדרין והעונשין המסורין להם"] },
+            { id: "edus", display: "הלכות עדות", alts: ["edus", "edut", "hilchos edus", "hilchot edut", "testimony", "witnesses", "עדות", "הלכות עדות"] },
+            { id: "mamrim", display: "הלכות ממרים", alts: ["mamrim", "hilchos mamrim", "hilchot mamrim", "rebels", "rebellious elders", "ממרים", "הלכות ממרים"] },
+            { id: "avel", display: "הלכות אבל", alts: ["avel", "hilchos avel", "hilchot avel", "mourning", "אבל", "הלכות אבל"] },
+            { id: "melachim_umilchamos", display: "הלכות מלכים ומלחמות", alts: ["melachim umilchamos", "melachim milchamos", "melachim umilchamot", "hilchos melachim umilchamos", "hilchot melachim umilchamot", "kings and wars", "laws of kings and wars", "מלכים ומלחמות", "הלכות מלכים ומלחמות"] }
+        ]
+        }
+    ];
 
         this.selectedBookId = "all";
         this.activeHalachos = [];
@@ -265,7 +265,7 @@ class MishnehTorahHalachosQuiz {
         this.controlBtn.textContent = "Start Game";
         this.controlBtn.classList.remove('give-up');
         this.messageBox.textContent = "Press Start to Begin!";
-        this.messageBox.style.color = "#333";
+        this.messageBox.style.color = "#475569";
 
         booksToShow.forEach(book => {
             const columnDiv = document.createElement('div');
@@ -306,14 +306,14 @@ class MishnehTorahHalachosQuiz {
             if (!match) return;
 
             if (this.correctAnswers.has(match.id)) {
-                this.messageBox.textContent = "You already got that one!";
-                this.messageBox.style.color = "orange";
+                this.messageBox.textContent = "Already found that one!";
+                this.messageBox.style.color = "#d97706";
             } else {
                 this.correctAnswers.add(match.id);
                 this.revealAnswer(match.id);
                 this.inputField.value = "";
-                this.messageBox.textContent = "Correct!";
-                this.messageBox.style.color = "green";
+                this.messageBox.textContent = `Nice! Found ${match.display}.`;
+                this.messageBox.style.color = "#15803d";
                 this.scoreDisplay.textContent = `${this.correctAnswers.size} / ${this.activeHalachos.length}`;
 
                 if (this.correctAnswers.size === this.activeHalachos.length) {
@@ -352,8 +352,8 @@ class MishnehTorahHalachosQuiz {
         this.timerEl.style.color = "";
         this.timerEl.textContent = this.formatTime(this.timeRemaining);
         this.scoreDisplay.textContent = `0 / ${this.activeHalachos.length}`;
-        this.messageBox.textContent = "Go!";
-        this.messageBox.style.color = "#333";
+        this.messageBox.textContent = "Clock is ticking — start typing!";
+        this.messageBox.style.color = "#334155";
         this.inputField.value = "";
         this.inputField.disabled = false;
         this.inputField.focus();
@@ -385,11 +385,11 @@ class MishnehTorahHalachosQuiz {
 
         if (won) {
             this.messageBox.textContent = "MAZEL TOV! You named them all!";
-            this.messageBox.style.color = "green";
-            this.timerEl.style.color = "green";
+            this.messageBox.style.color = "#15803d";
+            this.timerEl.style.color = "#15803d";
         } else {
-            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Game over!";
-            this.messageBox.style.color = "red";
+            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Round ended — missed items shown in red.";
+            this.messageBox.style.color = "#dc2626";
 
             this.activeHalachos.forEach(item => {
                 if (!this.correctAnswers.has(item.id)) {

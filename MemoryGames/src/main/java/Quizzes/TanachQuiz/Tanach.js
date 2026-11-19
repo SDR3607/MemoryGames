@@ -1,195 +1,227 @@
-// --- 1. Data Setup ---
-// The 24 Sifrei Tanach in order
-const TANACH = [
-    // --- TORAH ---
-    { id: "bereishis", display: "בראשית", alts: ["bereishis", "bereshit", "genesis", "בראשית"] },
-    { id: "shemos", display: "שמות", alts: ["shemos", "shemot", "exodus", "שמות"] },
-    { id: "vayikra", display: "ויקרא", alts: ["vayikra", "leviticus", "ויקרא"] },
-    { id: "bamidbar", display: "במדבר", alts: ["bamidbar", "numbers", "במדבר"] },
-    { id: "devarim", display: "דברים", alts: ["devarim", "deuteronomy", "דברים"] },
+class TanachQuiz {
+    constructor(options = {}) {
+        this.boardId = options.boardId || 'game-board';
+        this.timerId = options.timerId || 'timer';
+        this.controlBtnId = options.controlBtnId || 'control-btn';
+        this.inputId = options.inputId || 'answer-input';
+        this.messageId = options.messageId || 'message';
+        this.scoreId = options.scoreId || 'score';
+        this.defaultTimeSeconds = options.defaultTimeSeconds || 3 * 60;
 
-    // --- NEVIIM ---
-    { id: "yehoshua", display: "יהושע", alts: ["yehoshua", "joshua", "יהושע"] },
-    { id: "shoftim", display: "שופטים", alts: ["shoftim", "judges", "שופטים"] },
-    { id: "shmuel", display: "שמואל", alts: ["shmuel", "samuel", "שמואל"] },
-    { id: "melachim", display: "מלכים", alts: ["melachim", "kings", "מלכים"] },
-    { id: "yeshaya", display: "ישעיהו", alts: ["yeshaya", "yeshayahu", "isaiah", "ישעיהו", "ישעיה"] },
-    { id: "yirmiya", display: "ירמיהו", alts: ["yirmiya", "yirmiyahu", "jeremiah", "ירמיהו", "ירמיה"] },
-    { id: "yechezkel", display: "יחזקאל", alts: ["yechezkel", "ezekiel", "יחזקאל"] },
-    { id: "trei_asar", display: "תרי עשר", alts: ["trei asar", "trei assar", "minor prophets", "תרי עשר"] },
-
-    // --- KESUVIM ---
-    { id: "tehillim", display: "תהילים", alts: ["tehillim", "tehilim", "psalms", "תהילים", "תהלים"] },
-    { id: "mishlei", display: "משלי", alts: ["mishlei", "proverbs", "משלי"] },
-    { id: "iyov", display: "איוב", alts: ["iyov", "job", "איוב"] },
-    { id: "shir_hashirim", display: "שיר השירים", alts: ["shir hashirim", "song of songs", "שיר השירים"] },
-    { id: "rus", display: "רות", alts: ["rus", "rut", "ruth", "רות"] },
-    { id: "eicha", display: "איכה", alts: ["eicha", "eichah", "lamentations", "איכה"] },
-    { id: "koheles", display: "קהלת", alts: ["koheles", "kohelet", "ecclesiastes", "קהלת"] },
-    { id: "esther", display: "אסתר", alts: ["esther", "ester", "אסתר"] },
-    { id: "daniel", display: "דניאל", alts: ["daniel", "דניאל"] },
-    { id: "ezra_nechemia", display: "עזרא-נחמיה", alts: ["ezra", "nechemia", "nechemya", "ezra nechemia", "ezra-nechemia", "עזרא", "נחמיה", "עזרא ונחמיה"] },
-    { id: "divrei_hayamim", display: "דברי הימים", alts: ["divrei hayamim", "chronicles", "דברי הימים"] }
-];
-// 5 Columns for the 5 Books
-const COLUMN_SIZES = [5, 8, 11];
-const TITLES = ["תורה", "נביאים", "כתובים"];
-
-let correctAnswers = new Set();
-let timeRemaining = 3 * 60; // 6 minutes and 13 seconds
-let timerInterval;
-let gameActive = false;
-
-// --- 2. Initialize the Game Board ---
-function initGame() {
-    const board = document.getElementById('game-board');
-    let parshaIndex = 0;
-
-    for (let i = 0; i < COLUMN_SIZES.length; i++) {
-        const columnDiv = document.createElement('div');
-        columnDiv.className = 'book-column';
-
-        const title = document.createElement('div');
-        title.className = 'book-title';
-        title.textContent = TITLES[i];
-        columnDiv.appendChild(title);
-
-        const size = COLUMN_SIZES[i];
-        for (let j = 0; j < size; j++) {
-            if (parshaIndex < TANACH.length) {
-                const data = TANACH[parshaIndex];
-
-                const slot = document.createElement('div');
-                slot.className = 'answer-slot';
-
-                // Show the Hebrew Name
-                slot.textContent = data.display;
-
-                // Use the English ID for logic
-                slot.setAttribute('data-name', data.id);
-
-                columnDiv.appendChild(slot);
-                parshaIndex++;
+        this.sections = [
+            {
+                title: "תורה (Torah)",
+                books: [
+                    { id: "bereishis", display: "בראשית", alts: ["bereishis", "bereshit", "genesis", "בראשית"] },
+                    { id: "shemos", display: "שמות", alts: ["shemos", "shemot", "exodus", "שמות"] },
+                    { id: "vayikra", display: "ויקרא", alts: ["vayikra", "leviticus", "ויקרא"] },
+                    { id: "bamidbar", display: "במדבר", alts: ["bamidbar", "numbers", "במדבר"] },
+                    { id: "devarim", display: "דברים", alts: ["devarim", "deuteronomy", "דברים"] }
+                ]
+            },
+            {
+                title: "נביאים (Neviim)",
+                books: [
+                    { id: "yehoshua", display: "יהושע", alts: ["yehoshua", "joshua", "יהושע"] },
+                    { id: "shoftim", display: "שופטים", alts: ["shoftim", "judges", "שופטים"] },
+                    { id: "shmuel", display: "שמואל", alts: ["shmuel", "samuel", "1 and 2 samuel", "שמואל"] },
+                    { id: "melachim", display: "מלכים", alts: ["melachim", "melachim", "kings", "1 and 2 kings", "מלכים"] },
+                    { id: "yeshayahu", display: "ישעיהו", alts: ["yeshayahu", "yeshayah", "isaiah", "ישעיהו", "ישעיה"] },
+                    { id: "yirmiyahu", display: "ירמיהו", alts: ["yirmiyahu", "yirmiyah", "jeremiah", "ירמיהו", "ירמיה"] },
+                    { id: "yechezkel", display: "יחזקאל", alts: ["yechezkel", "yehezkel", "ezekiel", "יחזקאל"] },
+                    { id: "trei_asar", display: "תרי עשר", alts: ["trei asar", "trei asar", "twelve minor prophets", "minor prophets", "תרי עשר", "תריסר"] }
+                ]
+            },
+            {
+                title: "כתובים (Kesuvim)",
+                books: [
+                    { id: "tehillim", display: "תהילים", alts: ["tehillim", "tehilim", "psalms", "תהילים", "תהלים"] },
+                    { id: "mishlei", display: "משלי", alts: ["mishlei", "proverbs", "משלי"] },
+                    { id: "iyov", display: "איוב", alts: ["iyov", "job", "איוב"] },
+                    { id: "shir_hashirim", display: "שיר השירים", alts: ["shir hashirim", "song of songs", "song of solomon", "שיר השירים"] },
+                    { id: "rus", display: "רות", alts: ["rus", "rut", "ruth", "רות"] },
+                    { id: "eichah", display: "איכה", alts: ["eichah", "eicha", "lamentations", "איכה"] },
+                    { id: "koheles", display: "קהלת", alts: ["koheles", "kohelet", "ecclesiastes", "קהלת"] },
+                    { id: "esther", display: "אסתר", alts: ["esther", "ester", "אסתר"] },
+                    { id: "daniel", display: "דניאל", alts: ["daniel", "דניאל"] },
+                    { id: "ezra_nechemyah", display: "עזרא ונחמיה", alts: ["ezra", "nechemyah", "nehemiah", "ezra nehemiah", "עזרא", "נחמיה", "עזרא ונחמיה"] },
+                    { id: "divrei_hayamim", display: "דברי הימים", alts: ["divrei hayamim", "chronicles", "1 and 2 chronicles", "דברי הימים"] }
+                ]
             }
-        }
-        board.appendChild(columnDiv);
+        ];
+
+        this.allBooks = this.sections.flatMap(s => s.books);
+        this.correctAnswers = new Set();
+        this.timeRemaining = this.defaultTimeSeconds;
+        this.timerInterval = null;
+        this.gameActive = false;
+
+        this.boardEl = document.getElementById(this.boardId);
+        this.timerEl = document.getElementById(this.timerId);
+        this.controlBtn = document.getElementById(this.controlBtnId);
+        this.inputField = document.getElementById(this.inputId);
+        this.messageBox = document.getElementById(this.messageId);
+        this.scoreDisplay = document.getElementById(this.scoreId);
     }
-}
-// --- 3. Timer Logic (Same as Mishna) ---
-function startTimer() {
-    const timerDisplay = document.getElementById('timer');
-    timerInterval = setInterval(() => {
-        if (!gameActive) return;
-        timeRemaining--;
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        if (timeRemaining <= 0) endGame(false);
-    }, 1000);
-}
-
-// --- 4. Input Handling ---
-const controlBtn = document.getElementById('control-btn');
-const inputField = document.getElementById('answer-input');
-const messageBox = document.getElementById('message');
-const scoreDisplay = document.getElementById('score');
-
-inputField.addEventListener('input', function() {
-    if (!gameActive) return;
-
-    const userInput = this.value.trim().toLowerCase();
-
-    // Check 'alts' for the user input
-    const match = TANACH.find(p => p.alts.includes(userInput));
-
-    if (match) {
-        // Track progress using the safe ID
-        if (correctAnswers.has(match.id)) {
-            messageBox.textContent = "Already answered!";
-            messageBox.style.color = "orange";
-        } else {
-            correctAnswers.add(match.id);
-
-            // Reveal using the ID
-            const slot = document.querySelector(`.answer-slot[data-name="${match.id}"]`);
-            if (slot) slot.classList.add('revealed');
-
-            this.value = "";
-            messageBox.textContent = "Correct!";
-            messageBox.style.color = "green";
-            scoreDisplay.textContent = `${correctAnswers.size} / ${TANACH.length}`;
-
-            if (correctAnswers.size === TANACH.length) endGame(true);
-        }
+    normalizeInput(value) {
+        return value
+            .trim()
+            .toLowerCase()
+            .replace(/['’`´׳״-]/g, "")
+            .replace(/\s+/g, " ");
     }
-});
 
-controlBtn.addEventListener('click', () => {
-    if (gameActive) {
-        // If game is running, this button acts as "Give Up"
-        endGame(false);
-    } else {
-        // If game is over or hasn't started, this acts as "Start/Play Again"
-        startGame();
+    matchesBook(book, rawInput) {
+        const normalized = this.normalizeInput(rawInput);
+        if (!normalized) return false;
+        return book.alts.some(alt => this.normalizeInput(alt) === normalized);
     }
-});
 
-// --- 5. Start Game Logic ---
-function startGame() {
-    // 1. Reset Internal State
-    gameActive = true;
-    correctAnswers.clear();
-    timeRemaining = (6 * 60) + 13;
+    formatTime(secondsTotal) {
+        const minutes = Math.floor(secondsTotal / 60);
+        const seconds = secondsTotal % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 
-    // 2. Reset Visuals
-    document.getElementById('score').textContent = `0 / ${TANACH.length}`;
-    messageBox.textContent = "Go!";
-    messageBox.style.color = "#333";
-    inputField.value = "";
-    inputField.disabled = false;
-    inputField.focus();
+    initGame() {
+        if (!this.boardEl) return;
+        this.boardEl.innerHTML = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allBooks.length}`;
 
-    // 3. Button Visuals
-    controlBtn.textContent = "Give Up";
-    controlBtn.classList.add('give-up'); // Turns red
+        this.sections.forEach(section => {
+            const columnDiv = document.createElement('div');
+            columnDiv.className = 'seder-column';
 
-    // 4. Clear the Board (Remove colors)
-    // We select all slots and remove the 'revealed' and 'missed' classes
-    document.querySelectorAll('.answer-slot').forEach(slot => { // Use .tractate-slot for Mishna
-        slot.classList.remove('revealed', 'missed');
-    });
+            const title = document.createElement('div');
+            title.className = 'seder-title';
+            title.textContent = section.title;
+            columnDiv.appendChild(title);
 
-    // 5. Start Timer
-    clearInterval(timerInterval); // Safety clear
-    startTimer();
-}
+            section.books.forEach(item => {
+                const slot = document.createElement('div');
+                slot.className = 'tractate-slot';
+                slot.textContent = item.display;
+                slot.setAttribute('data-name', item.id);
+                columnDiv.appendChild(slot);
+            });
 
-// --- 6. End Game Logic ---
-function endGame(won) {
-    gameActive = false;
-    clearInterval(timerInterval);
-    inputField.disabled = true;
+            this.boardEl.appendChild(columnDiv);
+        });
 
-    controlBtn.textContent = "Play Again";
-    controlBtn.classList.remove('give-up');
+        this.bindEvents();
+    }
 
-    if (won) {
-        messageBox.textContent = "MAZEL TOV! You finished the whole Torah!";
-        messageBox.style.color = "green";
-        document.getElementById('timer').style.color = "green";
-    } else {
-        messageBox.textContent = "Time's up!";
-        messageBox.style.color = "red";
+    bindEvents() {
+        if (this._eventsBound) return;
+        this._eventsBound = true;
 
-        TANACH.forEach(p => {
-            // Check if ID is in correctAnswers
-            if (!correctAnswers.has(p.id)) {
-                const slot = document.querySelector(`.answer-slot[data-name="${p.id}"]`);
-                if (slot) slot.classList.add('missed');
+        this.inputField.addEventListener('input', () => {
+            if (!this.gameActive) return;
+
+            const match = this.allBooks.find(b => this.matchesBook(b, this.inputField.value));
+            if (!match) return;
+
+            if (this.correctAnswers.has(match.id)) {
+                this.messageBox.textContent = "Already found that one!";
+                this.messageBox.style.color = "#d97706";
+            } else {
+                this.correctAnswers.add(match.id);
+                this.revealAnswer(match.id);
+                this.inputField.value = "";
+                this.messageBox.textContent = `Nice! Found ${match.display}.`;
+                this.messageBox.style.color = "#15803d";
+                this.scoreDisplay.textContent = `${this.correctAnswers.size} / ${this.allBooks.length}`;
+
+                if (this.correctAnswers.size === this.allBooks.length) {
+                    this.endGame(true);
+                }
+            }
+        });
+
+        this.controlBtn.addEventListener('click', () => {
+            if (this.gameActive) {
+                this.endGame(false);
+            } else {
+                this.startGame();
             }
         });
     }
+
+    startTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+            if (!this.gameActive) return;
+            this.timeRemaining--;
+            this.timerEl.textContent = this.formatTime(Math.max(0, this.timeRemaining));
+
+            if (this.timeRemaining <= 0) {
+                this.endGame(false);
+            }
+        }, 1000);
+    }
+
+    startGame() {
+        this.gameActive = true;
+        this.correctAnswers.clear();
+        this.timeRemaining = this.defaultTimeSeconds;
+
+        this.timerEl.style.color = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allBooks.length}`;
+        this.messageBox.textContent = "Clock is ticking — start typing!";
+        this.messageBox.style.color = "#334155";
+        this.inputField.value = "";
+        this.inputField.disabled = false;
+        this.inputField.focus();
+
+        this.controlBtn.textContent = "Give Up";
+        this.controlBtn.classList.add('give-up');
+
+        document.querySelectorAll('.tractate-slot').forEach(slot => {
+            slot.classList.remove('revealed', 'missed');
+        });
+
+        this.startTimer();
+    }
+
+    revealAnswer(id) {
+        const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${id}"]`);
+        if (slot) {
+            slot.classList.add('revealed');
+        }
+    }
+
+    endGame(won) {
+        this.gameActive = false;
+        clearInterval(this.timerInterval);
+        this.inputField.disabled = true;
+
+        this.controlBtn.textContent = "Play Again";
+        this.controlBtn.classList.remove('give-up');
+
+        if (won) {
+            this.messageBox.textContent = "MAZEL TOV! You named all 24 books of Tanach!";
+            this.messageBox.style.color = "#15803d";
+            this.timerEl.style.color = "#15803d";
+        } else {
+            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Round ended — missed items shown in red.";
+            this.messageBox.style.color = "#dc2626";
+
+            this.allBooks.forEach(item => {
+                if (!this.correctAnswers.has(item.id)) {
+                    const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${item.id}"]`);
+                    if (slot) {
+                        slot.classList.add('missed');
+                    }
+                }
+            });
+        }
+    }
 }
 
-initGame();
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = new TanachQuiz();
+    quiz.initGame();
+});

@@ -26,7 +26,7 @@ class MishnehTorahBooksQuiz {
         ];
 
         this.columnSizes = [7, 7];
-        this.titles = ["ספרים א–ז (Books 1–7)", "ספרים ח–יד (Books 8–14)"];
+        this.titles = ["Books 1–7 • ספרים א–ז", "Books 8–14 • ספרים ח–יד"];
 
         this.correctAnswers = new Set();
         this.timeRemaining = this.defaultTimeSeconds;
@@ -106,14 +106,14 @@ class MishnehTorahBooksQuiz {
             if (!match) return;
 
             if (this.correctAnswers.has(match.id)) {
-                this.messageBox.textContent = "You already got that one!";
-                this.messageBox.style.color = "orange";
+                this.messageBox.textContent = "Already found that one!";
+                this.messageBox.style.color = "#d97706";
             } else {
                 this.correctAnswers.add(match.id);
                 this.revealAnswer(match.id);
                 this.inputField.value = "";
-                this.messageBox.textContent = "Correct!";
-                this.messageBox.style.color = "green";
+                this.messageBox.textContent = `Nice! Found ${match.display}.`;
+                this.messageBox.style.color = "#15803d";
                 this.scoreDisplay.textContent = `${this.correctAnswers.size} / ${this.books.length}`;
 
                 if (this.correctAnswers.size === this.books.length) {
@@ -152,8 +152,8 @@ class MishnehTorahBooksQuiz {
         this.timerEl.style.color = "";
         this.timerEl.textContent = this.formatTime(this.timeRemaining);
         this.scoreDisplay.textContent = `0 / ${this.books.length}`;
-        this.messageBox.textContent = "Go!";
-        this.messageBox.style.color = "#333";
+        this.messageBox.textContent = "Clock is ticking — start typing!";
+        this.messageBox.style.color = "#334155";
         this.inputField.value = "";
         this.inputField.disabled = false;
         this.inputField.focus();
@@ -184,12 +184,12 @@ class MishnehTorahBooksQuiz {
         this.controlBtn.classList.remove('give-up');
 
         if (won) {
-            this.messageBox.textContent = "MAZEL TOV! You named all 14 books!";
-            this.messageBox.style.color = "green";
-            this.timerEl.style.color = "green";
+            this.messageBox.textContent = "MAZEL TOV! All 14 books named!";
+            this.messageBox.style.color = "#15803d";
+            this.timerEl.style.color = "#15803d";
         } else {
-            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Game over!";
-            this.messageBox.style.color = "red";
+            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Round ended — missed items shown in red.";
+            this.messageBox.style.color = "#dc2626";
 
             this.books.forEach(b => {
                 if (!this.correctAnswers.has(b.id)) {

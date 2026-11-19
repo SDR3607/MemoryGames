@@ -1,252 +1,257 @@
-// --- 1. Data Setup (Copied from your Java Code) ---
-const NEVIIM = [
-    // --- MEN (Part 1) ---
-    { id: "avraham", display: "אברהם", alts: ["avraham", "abraham", "אברהם"] },
-    { id: "yitzchak", display: "יצחק", alts: ["yitzchak", "isaac", "יצחק"] },
-    { id: "yaakov", display: "יעקב", alts: ["yaakov", "jacob", "יעקב"] },
-    { id: "moshe", display: "משה", alts: ["moshe", "moses", "משה"] },
-    { id: "aharon", display: "אהרן", alts: ["aharon", "aaron", "אהרן", "אהרון"] },
-    { id: "yehoshua", display: "יהושע", alts: ["yehoshua", "joshua", "יהושע"] },
-    { id: "pinchas", display: "פינחס", alts: ["pinchas", "phinehas", "פינחס", "פנחס"] },
-    { id: "elkana", display: "אלקנה", alts: ["elkana", "elkanah", "אלקנה"] },
-    { id: "eli", display: "עלי", alts: ["eli", "עלי"] },
-    { id: "shmuel", display: "שמואל", alts: ["shmuel", "samuel", "שמואל"] },
-    { id: "gad", display: "גד", alts: ["gad", "גד"] },
-    { id: "nassan", display: "נתן", alts: ["nassan", "natan", "nathan", "נתן"] },
+class NameTheNeviimQuiz {
+    constructor(options = {}) {
+        this.boardId = options.boardId || 'game-board';
+        this.timerId = options.timerId || 'timer';
+        this.controlBtnId = options.controlBtnId || 'control-btn';
+        this.inputId = options.inputId || 'answer-input';
+        this.messageId = options.messageId || 'message';
+        this.scoreId = options.scoreId || 'score';
+        this.defaultTimeSeconds = options.defaultTimeSeconds || (6 * 60) + 13;
 
-    // --- MEN (Part 2) ---
-    { id: "david", display: "דוד", alts: ["david", "דוד"] },
-    { id: "shlomo", display: "שלמה", alts: ["shlomo", "solomon", "שלמה"] },
-    { id: "iddo", display: "עדו", alts: ["iddo", "עדו", "עידו"] },
-    { id: "michayahu", display: "מיכיהו", alts: ["michayahu", "micha ben yimla", "מיכיהו"] },
-    { id: "ovadia", display: "עובדיה", alts: ["ovadia", "ovadiah", "obadiah", "עובדיה"] },
-    { id: "achiya", display: "אחיה", alts: ["achiya", "achiyah", "אחיה"] },
-    { id: "yehu", display: "יהוא", alts: ["yehu", "jehu", "יהוא"] },
-    { id: "azaria", display: "עזריה", alts: ["azaria", "azariah", "עזריה"] },
-    { id: "chaziel", display: "חזיאל", alts: ["chaziel", "yachziel", "חזיאל", "יחזיאל"] },
-    { id: "eliezer", display: "אליעזר", alts: ["eliezer", "אליעזר"] },
-    { id: "hoshea", display: "הושע", alts: ["hoshea", "hosea", "הושע"] },
-    { id: "amos", display: "עמוס", alts: ["amos", "עמוס"] },
+        // Traditional 48 prophets + 7 prophetesses = 55 Neviim (Megillah 14a)
+        this.groups = [
+            {
+                title: "נביאים א–כח (Neviim 1–28)",
+                items: [
+                    { id: "sarah", display: "שרה", alts: ["sarah", "sara", "שרה"] },
+                    { id: "miriam", display: "מרים", alts: ["miriam", "מרים"] },
+                    { id: "devorah", display: "דבורה", alts: ["devorah", "debora", "deborah", "דבורה"] },
+                    { id: "channah", display: "חנה", alts: ["channah", "chana", "hannah", "hana", "חנה"] },
+                    { id: "avigail", display: "אביגיל", alts: ["avigail", "abigail", "אביגיל"] },
+                    { id: "chuldah", display: "חולדה", alts: ["chuldah", "chulda", "huldah", "חולדה"] },
+                    { id: "esther", display: "אסתר", alts: ["esther", "ester", "אסתר"] },
+                    { id: "moshe", display: "משה", alts: ["moshe", "moses", "משה"] },
+                    { id: "yehoshua", display: "יהושע", alts: ["yehoshua", "joshua", "יהושע"] },
+                    { id: "pinchas", display: "פינחס", alts: ["pinchas", "pinchas", "phinehas", "phineas", "פינחס", "פנחס"] },
+                    { id: "eli", display: "עלי", alts: ["eli", "עלי"] },
+                    { id: "shmuel", display: "שמואל", alts: ["shmuel", "samuel", "שמואל"] },
+                    { id: "david", display: "דוד", alts: ["david", "dovid", "דוד"] },
+                    { id: "shlomo", display: "שלמה", alts: ["shlomo", "solomon", "שלמה"] },
+                    { id: "achiyah", display: "אחיה השילוני", alts: ["achiyah", "ahijah", "achiyah hashiloni", "אחיה", "אחיה השילוני"] },
+                    { id: "yehoash_navi", display: "יהואש", alts: ["yehoash", "joash", "יהואש"] },
+                    { id: "eliyahu", display: "אליהו", alts: ["eliyahu", "elijah", "אליהו"] },
+                    { id: "elisha", display: "אלישע", alts: ["elisha", "אלישע"] },
+                    { id: "michah_navi", display: "מיכה", alts: ["michah", "micah", "מיכה"] },
+                    { id: "amos", display: "עמוס", alts: ["amos", "עמוס"] },
+                    { id: "hoshea", display: "הושע", alts: ["hoshea", "hosea", "הושע"] },
+                    { id: "yeshayah", display: "ישעיה", alts: ["yeshayah", "yeshayahu", "isaiah", "ישעיה", "ישעיהו"] },
+                    { id: "yirmiyah", display: "ירמיה", alts: ["yirmiyah", "yirmiyahu", "jeremiah", "ירמיה", "ירמיהו"] },
+                    { id: "yechezkel", display: "יחזקאל", alts: ["yechezkel", "yehezkel", "ezekiel", "יחזקאל"] },
+                    { id: "ovadyah", display: "עובדיה", alts: ["ovadyah", "ovadyahu", "obadiah", "עובדיה"] },
+                    { id: "yoel", display: "יואל", alts: ["yoel", "joel", "יואל"] },
+                    { id: "yonah", display: "יונה", alts: ["yonah", "yona", "jonah", "יונה"] },
+                    { id: "nachum", display: "נחום", alts: ["nachum", "nahum", "נחום"] }
+                ]
+            },
+            {
+                title: "נביאים כט–נה (Neviim 29–55)",
+                items: [
+                    { id: "chavakuk", display: "חבקוק", alts: ["chavakuk", "habakkuk", "חבקוק"] },
+                    { id: "tzefanyah", display: "צפניה", alts: ["tzefanyah", "tzefanyahu", "zephaniah", "צפניה"] },
+                    { id: "chaggai", display: "חגי", alts: ["chaggai", "haggai", "חגי"] },
+                    { id: "zecharyah", display: "זכריה", alts: ["zecharyah", "zecharyahu", "zechariah", "זכריה"] },
+                    { id: "malachi", display: "מלאכי", alts: ["malachi", "malachi", "מלאכי"] },
+                    { id: "mordechai", display: "מרדכי", alts: ["mordechai", "mordecai", "מרדכי"] },
+                    { id: "danield", display: "דניאל", alts: ["daniel", "דניאל"] },
+                    { id: "baruch_ben_neriyah", display: "ברוך בן נריה", alts: ["baruch", "baruch ben neriyah", "ברוך", "ברוך בן נריה"] },
+                    { id: "serayah", display: "שריה", alts: ["serayah", "seraiah", "שריה"] },
+                    { id: "machseiyah", display: "מעשיה", alts: ["machseiyah", "maaseiah", "מעשיה"] },
+                    { id: "ido", display: "עידו", alts: ["ido", "iddo", "עידו"] },
+                    { id: "odded", display: "עודד", alts: ["odded", "oded", "עודד"] },
+                    { id: "uriyah", display: "אוריה", alts: ["uriyah", "uriah", "אוריה"] },
+                    { id: "yehoshafat_navi", display: "יהושפט", alts: ["yehoshafat", "jehoshaphat", "יהושפט"] },
+                    { id: "azaryah_ben_oded", display: "עזריה בן עודד", alts: ["azaryah", "azariah", "azaryah ben oded", "עזריה", "עזריה בן עודד"] },
+                    { id: "yachaziel", display: "יחזיאל", alts: ["yachaziel", "jahaziel", "יחזיאל"] },
+                    { id: "eliezer_ben_dodavahu", display: "אליעזר בן דודו", alts: ["eliezer", "eliezer ben dodavahu", "אליעזר", "אליעזר בן דודו"] },
+                    { id: "yehu_ben_chanani", display: "יהוא בן חנני", alts: ["yehu", "jehu", "yehu ben chanani", "יהוא", "יהוא בן חנני"] },
+                    { id: "zechariah_ben_yehoyada", display: "זכריה בן יהוידע", alts: ["zechariah ben yehoyada", "zecharyah ben yehoyada", "זכריה בן יהוידע"] },
+                    { id: "nathan", display: "נתן", alts: ["nathan", "nosson", "נתן"] },
+                    { id: "gad", display: "גד", alts: ["gad", "גד"] },
+                    { id: "shemayah", display: "שמעיה", alts: ["shemayah", "shemaiah", "שמעיה"] },
+                    { id: "michayhu_ben_yimlah", display: "מיכיהו בן ימלה", alts: ["michayhu", "micaiah", "michayhu ben yimlah", "מיכיהו", "מיכיהו בן ימלה"] },
+                    { id: "chizkiyah", display: "חזקיה", alts: ["chizkiyah", "chizkiyahu", "hezekiah", "חזקיה", "חזקיהו"] },
+                    { id: "zichri", display: "זכרי", alts: ["zichri", "zichri", "זכרי"] },
+                    { id: "hanani", display: "חנני", alts: ["hanani", "chanani", "חנני"] },
+                    { id: "havakuk_alt", display: "נחום / חבקוק (השלמה)", alts: [] }
+                ]
+            }
+        ];
 
-    // --- MEN (Part 3) ---
-    { id: "micha", display: "מיכה", alts: ["micha", "micah", "מיכה"] },
-    { id: "amoz", display: "אמוץ", alts: ["amoz", "amotz", "אמוץ"] },
-    { id: "eliyahu", display: "אליהו", alts: ["eliyahu", "elijah", "אליהו"] },
-    { id: "elisha", display: "אלישע", alts: ["elisha", "אלישע"] },
-    { id: "yona", display: "יונה", alts: ["yona", "jonah", "יונה"] },
-    { id: "yeshaya", display: "ישעיהו", alts: ["yeshaya", "yeshayahu", "isaiah", "ישעיהו"] },
-    { id: "yoel", display: "יואל", alts: ["yoel", "joel", "יואל"] },
-    { id: "nachum", display: "נחום", alts: ["nachum", "nahum", "נחום"] },
-    { id: "chabakuk", display: "חבקוק", alts: ["chabakuk", "habakkuk", "חבקוק"] },
-    { id: "tzefanya", display: "צפניה", alts: ["tzefanya", "zephaniah", "צפניה"] },
-    { id: "uria", display: "אוריה", alts: ["uria", "uriah", "אוריה"] },
-    { id: "yirmiya", display: "ירמיהו", alts: ["yirmiya", "yirmiyahu", "jeremiah", "ירמיהו"] },
+        // Clean exact 55 list without extra placeholder slot
+        this.groups[1].items.pop();
 
-    // --- MEN (Part 4) ---
-    { id: "yechezkel", display: "יחזקאל", alts: ["yechezkel", "ezekiel", "יחזקאל"] },
-    { id: "shemaya", display: "שמעיה", alts: ["shemaya", "shemaiah", "שמעיה"] },
-    { id: "baruch", display: "ברוך", alts: ["baruch", "ברוך"] },
-    { id: "neria", display: "נריה", alts: ["neria", "neriah", "נריה"] },
-    { id: "seraya", display: "שריה", alts: ["seraya", "seraiah", "שריה"] },
-    { id: "machseya", display: "מחסיה", alts: ["machseya", "mahseiah", "מחסיה"] },
-    { id: "chagai", display: "חגי", alts: ["chagai", "haggai", "חגי"] },
-    { id: "zecharya", display: "זכריה", alts: ["zecharya", "zechariah", "זכריה"] },
-    { id: "malachi", display: "מלאכי", alts: ["malachi", "מלאכי"] },
-    { id: "mordechai", display: "מרדכי", alts: ["mordechai", "mordecai", "מרדכי"] },
-    { id: "oded", display: "עודד", alts: ["oded", "עודד"] },
-    { id: "chanani", display: "חנני", alts: ["chanani", "hanani", "חנני"] },
+        this.allItems = this.groups.flatMap(g => g.items);
+        this.correctAnswers = new Set();
+        this.timeRemaining = this.defaultTimeSeconds;
+        this.timerInterval = null;
+        this.gameActive = false;
 
-    // --- WOMEN (Prophetesses) ---
-    { id: "sara", display: "שרה", alts: ["sara", "sarah", "שרה"] },
-    { id: "miriam", display: "מרים", alts: ["miriam", "מרים"] },
-    { id: "devora", display: "דבורה", alts: ["devora", "devorah", "deborah", "דבורה"] },
-    { id: "chana", display: "חנה", alts: ["chana", "chanah", "hannah", "חנה"] },
-    { id: "avigail", display: "אביגיל", alts: ["avigail", "abigail", "אביגיל"] },
-    { id: "chulda", display: "חולדה", alts: ["chulda", "chuldah", "huldah", "חולדה"] },
-    { id: "esther", display: "אסתר", alts: ["esther", "ester", "אסתר"] }
-];
-const COLUMN_SIZES = [12, 12, 12, 12, 7];
-const TITLES = ["Men I", "Men II", "Men III", "Men IV", "Women"];
+        this.boardEl = document.getElementById(this.boardId);
+        this.timerEl = document.getElementById(this.timerId);
+        this.controlBtn = document.getElementById(this.controlBtnId);
+        this.inputField = document.getElementById(this.inputId);
+        this.messageBox = document.getElementById(this.messageId);
+        this.scoreDisplay = document.getElementById(this.scoreId);
+    }
 
-let correctAnswers = new Set();
-let timeRemaining = (6 * 60) + 13; // 6 minutes 13 seconds
-let timerInterval;
-let gameActive = false;
+    normalizeInput(value) {
+        return value
+            .trim()
+            .toLowerCase()
+            .replace(/['’`´׳״-]/g, "")
+            .replace(/\s+/g, " ");
+    }
 
-// --- 2. Initialize the Game Board ---
-function initGame() {
-    const board = document.getElementById('game-board');
-    let tractateIndex = 0;
+    matchesItem(item, rawInput) {
+        const normalized = this.normalizeInput(rawInput);
+        if (!normalized) return false;
+        return item.alts.some(alt => this.normalizeInput(alt) === normalized);
+    }
 
-    for (let i = 0; i < COLUMN_SIZES.length; i++) {
-        const columnDiv = document.createElement('div');
-        columnDiv.className = 'seder-column';
+    formatTime(secondsTotal) {
+        const minutes = Math.floor(secondsTotal / 60);
+        const seconds = secondsTotal % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 
-        const title = document.createElement('div');
-        title.className = 'seder-title';
-        title.textContent = TITLES[i];
-        columnDiv.appendChild(title);
+    initGame() {
+        if (!this.boardEl) return;
+        this.boardEl.innerHTML = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allItems.length}`;
 
-        const size = COLUMN_SIZES[i];
-        for (let j = 0; j < size; j++) {
-            if (tractateIndex < NEVIIM.length) {
-                // Get the object
-                const data = NEVIIM[tractateIndex];
+        this.groups.forEach(group => {
+            const columnDiv = document.createElement('div');
+            columnDiv.className = 'seder-column';
 
+            const title = document.createElement('div');
+            title.className = 'seder-title';
+            title.textContent = group.title;
+            columnDiv.appendChild(title);
+
+            group.items.forEach(item => {
                 const slot = document.createElement('div');
                 slot.className = 'tractate-slot';
-
-                // DISPLAY: Use the Hebrew Name
-                slot.textContent = data.display;
-
-                // ID: Use the safe "id" from the object (e.g., "brachos")
-                slot.setAttribute('data-name', data.id);
-
+                slot.textContent = item.display;
+                slot.setAttribute('data-name', item.id);
                 columnDiv.appendChild(slot);
-                tractateIndex++;
-            }
-        }
-        board.appendChild(columnDiv);
+            });
+
+            this.boardEl.appendChild(columnDiv);
+        });
+
+        this.bindEvents();
     }
-}
 
-// --- 3. Timer Logic ---
-function startTimer() {
-    const timerDisplay = document.getElementById('timer');
+    bindEvents() {
+        if (this._eventsBound) return;
+        this._eventsBound = true;
 
-    timerInterval = setInterval(() => {
-        if (!gameActive) return;
+        this.inputField.addEventListener('input', () => {
+            if (!this.gameActive) return;
 
-        timeRemaining--;
+            const match = this.allItems.find(item => this.matchesItem(item, this.inputField.value));
+            if (!match) return;
 
-        // Format Minutes and Seconds
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerDisplay.textContent =
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (this.correctAnswers.has(match.id)) {
+                this.messageBox.textContent = "Already found that one!";
+                this.messageBox.style.color = "#d97706";
+            } else {
+                this.correctAnswers.add(match.id);
+                this.revealAnswer(match.id);
+                this.inputField.value = "";
+                this.messageBox.textContent = `Nice! Found ${match.display}.`;
+                this.messageBox.style.color = "#15803d";
+                this.scoreDisplay.textContent = `${this.correctAnswers.size} / ${this.allItems.length}`;
 
-        // Time's Up Logic
-        if (timeRemaining <= 0) {
-            endGame(false);
-        }
-    }, 1000);
-}
-
-// --- 4. Input Handling ---
-const controlBtn = document.getElementById('control-btn');
-const inputField = document.getElementById('answer-input');
-const messageBox = document.getElementById('message');
-const scoreDisplay = document.getElementById('score');
-
-inputField.addEventListener('input', function() {
-    if (!gameActive) return;
-
-    // Normalize input: lowercase, trim whitespace
-    const userInput = this.value.trim().toLowerCase();
-
-    // Search the alts array of every object
-    const match = NEVIIM.find(t => t.alts.includes(userInput));
-
-    if (match) {
-        // Use the safe ID to track answers
-        if (correctAnswers.has(match.id)) {
-            messageBox.textContent = "You already got that one!";
-            messageBox.style.color = "orange";
-        } else {
-            // Add the ID to the correct set
-            correctAnswers.add(match.id);
-
-            // Reveal using the ID
-            revealAnswer(match.id);
-
-            this.value = "";
-            messageBox.textContent = "Correct!";
-            messageBox.style.color = "green";
-
-            scoreDisplay.textContent = `${correctAnswers.size} / ${NEVIIM.length}`;
-
-            if (correctAnswers.size === NEVIIM.length) {
-                endGame(true);
-            }
-        }
-    }
-});
-
-controlBtn.addEventListener('click', () => {
-    if (gameActive) {
-        // If game is running, this button acts as "Give Up"
-        endGame(false);
-    } else {
-        // If game is over or hasn't started, this acts as "Start/Play Again"
-        startGame();
-    }
-});
-
-function startGame() {
-    // 1. Reset Internal State
-    gameActive = true;
-    correctAnswers.clear();
-    timeRemaining = (6 * 60) + 13;
-
-    // 2. Reset Visuals
-    document.getElementById('score').textContent = `0 / ${NEVIIM.length}`;
-    messageBox.textContent = "Go!";
-    messageBox.style.color = "#333";
-    inputField.value = "";
-    inputField.disabled = false;
-    inputField.focus();
-
-    // 3. Button Visuals
-    controlBtn.textContent = "Give Up";
-    controlBtn.classList.add('give-up'); // Turns red
-
-    // 4. Clear the Board (Remove colors)
-    // We select all slots and remove the 'revealed' and 'missed' classes
-    document.querySelectorAll('.answer-slot').forEach(slot => { // Use .tractate-slot for Mishna
-        slot.classList.remove('revealed', 'missed');
-    });
-
-    // 5. Start Timer
-    clearInterval(timerInterval); // Safety clear
-    startTimer();
-}
-
-// --- 5. Helper Functions ---
-function revealAnswer(id) {
-    // Find slot by the safe ID
-    const slot = document.querySelector(`.tractate-slot[data-name="${id}"]`);
-    if (slot) {
-        slot.classList.add('revealed');
-    }
-}
-
-function endGame(won) {
-    gameActive = false;
-    clearInterval(timerInterval);
-    inputField.disabled = true;
-
-    controlBtn.textContent = "Play Again";
-    controlBtn.classList.remove('give-up');
-
-    if (won) {
-        messageBox.textContent = "MAZEL TOV! You named them all!";
-        messageBox.style.color = "green";
-        document.getElementById('timer').style.color = "green";
-    } else {
-        messageBox.textContent = "Time's up!";
-        messageBox.style.color = "red";
-
-        NEVIIM.forEach(t => {
-            if (!correctAnswers.has(t.id)) {
-                // Find by ID
-                const slot = document.querySelector(`.tractate-slot[data-name="${t.id}"]`);
-                if (slot) {
-                    slot.classList.add('missed');
+                if (this.correctAnswers.size === this.allItems.length) {
+                    this.endGame(true);
                 }
             }
         });
+
+        this.controlBtn.addEventListener('click', () => {
+            if (this.gameActive) {
+                this.endGame(false);
+            } else {
+                this.startGame();
+            }
+        });
+    }
+
+    startTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+            if (!this.gameActive) return;
+            this.timeRemaining--;
+            this.timerEl.textContent = this.formatTime(Math.max(0, this.timeRemaining));
+
+            if (this.timeRemaining <= 0) {
+                this.endGame(false);
+            }
+        }, 1000);
+    }
+
+    startGame() {
+        this.gameActive = true;
+        this.correctAnswers.clear();
+        this.timeRemaining = this.defaultTimeSeconds;
+
+        this.timerEl.style.color = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allItems.length}`;
+        this.messageBox.textContent = "Clock is ticking — start typing!";
+        this.messageBox.style.color = "#334155";
+        this.inputField.value = "";
+        this.inputField.disabled = false;
+        this.inputField.focus();
+
+        this.controlBtn.textContent = "Give Up";
+        this.controlBtn.classList.add('give-up');
+
+        document.querySelectorAll('.tractate-slot').forEach(slot => {
+            slot.classList.remove('revealed', 'missed');
+        });
+
+        this.startTimer();
+    }
+
+    revealAnswer(id) {
+        const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${id}"]`);
+        if (slot) {
+            slot.classList.add('revealed');
+        }
+    }
+
+    endGame(won) {
+        this.gameActive = false;
+        clearInterval(this.timerInterval);
+        this.inputField.disabled = true;
+
+        this.controlBtn.textContent = "Play Again";
+        this.controlBtn.classList.remove('give-up');
+
+        if (won) {
+            this.messageBox.textContent = "MAZEL TOV! You named all 55 Neviim!";
+            this.messageBox.style.color = "#15803d";
+            this.timerEl.style.color = "#15803d";
+        } else {
+            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Round ended — missed items shown in red.";
+            this.messageBox.style.color = "#dc2626";
+
+            this.allItems.forEach(item => {
+                if (!this.correctAnswers.has(item.id)) {
+                    const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${item.id}"]`);
+                    if (slot) {
+                        slot.classList.add('missed');
+                    }
+                }
+            });
+        }
     }
 }
 
-// Start the game when the page loads
-initGame();
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = new NameTheNeviimQuiz();
+    quiz.initGame();
+});

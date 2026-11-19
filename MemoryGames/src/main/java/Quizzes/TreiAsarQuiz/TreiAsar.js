@@ -1,182 +1,210 @@
-// --- 1. Data Setup ---
-// The Trei Asar in order
-const TREIASAR = [
-    // --- COLUMN 1 ---
-    { id: "hoshea", display: "הושע", alts: ["hoshea", "hosea", "הושע"] },
-    { id: "yoel", display: "יואל", alts: ["yoel", "joel", "יואל"] },
-    { id: "amos", display: "עמוס", alts: ["amos", "עמוס"] },
-    { id: "ovadia", display: "עובדיה", alts: ["ovadia", "ovadiah", "obadiah", "עובדיה"] },
-    { id: "yona", display: "יונה", alts: ["yona", "yonah", "jonah", "יונה"] },
-    { id: "micha", display: "מיכה", alts: ["micha", "michah", "micah", "מיכה"] },
+class TreiAsarQuiz {
+    constructor(options = {}) {
+        this.boardId = options.boardId || 'game-board';
+        this.timerId = options.timerId || 'timer';
+        this.controlBtnId = options.controlBtnId || 'control-btn';
+        this.inputId = options.inputId || 'answer-input';
+        this.messageId = options.messageId || 'message';
+        this.scoreId = options.scoreId || 'score';
+        this.defaultTimeSeconds = options.defaultTimeSeconds || 3 * 60;
 
-    // --- COLUMN 2 ---
-    { id: "nachum", display: "נחום", alts: ["nachum", "nahum", "נחום"] },
-    { id: "chabakuk", display: "חבקוק", alts: ["chabakuk", "habakkuk", "חבקוק"] },
-    { id: "tzefanya", display: "צפניה", alts: ["tzefanya", "tzefaniah", "zephaniah", "צפניה"] },
-    { id: "chagai", display: "חגי", alts: ["chagai", "haggai", "חגי"] },
-    { id: "zecharya", display: "זכריה", alts: ["zecharya", "zechariah", "זכריה"] },
-    { id: "malachi", display: "מלאכי", alts: ["malachi", "malachi", "מלאכי"] }
-];
-
-// 2 Columns
-const COLUMN_SIZES = [6, 6];
-const TITLES = ["First 6", "Last 6"];
-
-let correctAnswers = new Set();
-let timeRemaining = 2 * 60; // 6 minutes and 13 seconds
-let timerInterval;
-let gameActive = false;
-
-// --- 2. Initialize the Game Board ---
-function initGame() {
-    const board = document.getElementById('game-board');
-    let parshaIndex = 0;
-
-    for (let i = 0; i < COLUMN_SIZES.length; i++) {
-        const columnDiv = document.createElement('div');
-        columnDiv.className = 'book-column';
-
-        const title = document.createElement('div');
-        title.className = 'book-title';
-        title.textContent = TITLES[i];
-        columnDiv.appendChild(title);
-
-        const size = COLUMN_SIZES[i];
-        for (let j = 0; j < size; j++) {
-            if (parshaIndex < TREIASAR.length) {
-                const data = TREIASAR[parshaIndex];
-
-                const slot = document.createElement('div');
-                slot.className = 'answer-slot';
-
-                // Show the Hebrew Name
-                slot.textContent = data.display;
-
-                // Use the English ID for logic
-                slot.setAttribute('data-name', data.id);
-
-                columnDiv.appendChild(slot);
-                parshaIndex++;
+        this.columns = [
+            {
+                title: "נביאים א–ו (Prophets 1–6)",
+                prophets: [
+                    { id: "hoshea", display: "הושע", alts: ["hoshea", "hosea", "הושע"] },
+                    { id: "yoel", display: "יואל", alts: ["yoel", "joel", "יואל"] },
+                    { id: "amos", display: "עמוס", alts: ["amos", "עמוס"] },
+                    { id: "ovadyah", display: "עובדיה", alts: ["ovadyah", "ovadyahu", "obadiah", "עובדיה"] },
+                    { id: "yonah", display: "יונה", alts: ["yonah", "yona", "jonah", "יונה"] },
+                    { id: "michah", display: "מיכה", alts: ["michah", "micah", "מיכה"] }
+                ]
+            },
+            {
+                title: "נביאים ז–יב (Prophets 7–12)",
+                prophets: [
+                    { id: "nachum", display: "נחום", alts: ["nachum", "nahum", "נחום"] },
+                    { id: "chavakuk", display: "חבקוק", alts: ["chavakuk", "habakkuk", "חבקוק"] },
+                    { id: "tzefanyah", display: "צפניה", alts: ["tzefanyah", "tzefanyahu", "zephaniah", "צפניה"] },
+                    { id: "chaggai", display: "חגי", alts: ["chaggai", "haggai", "חגי"] },
+                    { id: "zecharyah", display: "זכריה", alts: ["zecharyah", "zecharyahu", "zechariah", "זכריה"] },
+                    { id: "malachi", display: "מלאכי", alts: ["malachi", "malachi", "מלאכי"] }
+                ]
             }
-        }
-        board.appendChild(columnDiv);
+        ];
+
+        this.allProphets = this.columns.flatMap(c => c.prophets);
+        this.correctAnswers = new Set();
+        this.timeRemaining = this.defaultTimeSeconds;
+        this.timerInterval = null;
+        this.gameActive = false;
+
+        this.boardEl = document.getElementById(this.boardId);
+        this.timerEl = document.getElementById(this.timerId);
+        this.controlBtn = document.getElementById(this.controlBtnId);
+        this.inputField = document.getElementById(this.inputId);
+        this.messageBox = document.getElementById(this.messageId);
+        this.scoreDisplay = document.getElementById(this.scoreId);
     }
-}
-// --- 3. Timer Logic (Same as Mishna) ---
-function startTimer() {
-    const timerDisplay = document.getElementById('timer');
-    timerInterval = setInterval(() => {
-        if (!gameActive) return;
-        timeRemaining--;
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        if (timeRemaining <= 0) endGame(false);
-    }, 1000);
-}
-
-// --- 4. Input Handling ---
-const controlBtn = document.getElementById('control-btn');
-const inputField = document.getElementById('answer-input');
-const messageBox = document.getElementById('message');
-const scoreDisplay = document.getElementById('score');
-
-inputField.addEventListener('input', function() {
-    if (!gameActive) return;
-
-    const userInput = this.value.trim().toLowerCase();
-
-    // Check 'alts' for the user input
-    const match = TREIASAR.find(p => p.alts.includes(userInput));
-
-    if (match) {
-        // Track progress using the safe ID
-        if (correctAnswers.has(match.id)) {
-            messageBox.textContent = "Already answered!";
-            messageBox.style.color = "orange";
-        } else {
-            correctAnswers.add(match.id);
-
-            // Reveal using the ID
-            const slot = document.querySelector(`.answer-slot[data-name="${match.id}"]`);
-            if (slot) slot.classList.add('revealed');
-
-            this.value = "";
-            messageBox.textContent = "Correct!";
-            messageBox.style.color = "green";
-            scoreDisplay.textContent = `${correctAnswers.size} / ${TREIASAR.length}`;
-
-            if (correctAnswers.size === TREIASAR.length) endGame(true);
-        }
+    normalizeInput(value) {
+        return value
+            .trim()
+            .toLowerCase()
+            .replace(/['’`´׳״-]/g, "")
+            .replace(/\s+/g, " ");
     }
-});
 
-controlBtn.addEventListener('click', () => {
-    if (gameActive) {
-        // If game is running, this button acts as "Give Up"
-        endGame(false);
-    } else {
-        // If game is over or hasn't started, this acts as "Start/Play Again"
-        startGame();
+    matchesProphet(prophet, rawInput) {
+        const normalized = this.normalizeInput(rawInput);
+        if (!normalized) return false;
+        return prophet.alts.some(alt => this.normalizeInput(alt) === normalized);
     }
-});
 
-// --- 5. Start Game Logic ---
-function startGame() {
-    // 1. Reset Internal State
-    gameActive = true;
-    correctAnswers.clear();
-    timeRemaining = (6 * 60) + 13;
+    formatTime(secondsTotal) {
+        const minutes = Math.floor(secondsTotal / 60);
+        const seconds = secondsTotal % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 
-    // 2. Reset Visuals
-    document.getElementById('score').textContent = `0 / ${TREIASAR.length}`;
-    messageBox.textContent = "Go!";
-    messageBox.style.color = "#333";
-    inputField.value = "";
-    inputField.disabled = false;
-    inputField.focus();
+    initGame() {
+        if (!this.boardEl) return;
+        this.boardEl.innerHTML = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allProphets.length}`;
 
-    // 3. Button Visuals
-    controlBtn.textContent = "Give Up";
-    controlBtn.classList.add('give-up'); // Turns red
+        this.columns.forEach(col => {
+            const columnDiv = document.createElement('div');
+            columnDiv.className = 'seder-column';
 
-    // 4. Clear the Board (Remove colors)
-    // We select all slots and remove the 'revealed' and 'missed' classes
-    document.querySelectorAll('.answer-slot').forEach(slot => { // Use .tractate-slot for Mishna
-        slot.classList.remove('revealed', 'missed');
-    });
+            const title = document.createElement('div');
+            title.className = 'seder-title';
+            title.textContent = col.title;
+            columnDiv.appendChild(title);
 
-    // 5. Start Timer
-    clearInterval(timerInterval); // Safety clear
-    startTimer();
-}
+            col.prophets.forEach(item => {
+                const slot = document.createElement('div');
+                slot.className = 'tractate-slot';
+                slot.textContent = item.display;
+                slot.setAttribute('data-name', item.id);
+                columnDiv.appendChild(slot);
+            });
 
-// --- 6. End Game Logic ---
-function endGame(won) {
-    gameActive = false;
-    clearInterval(timerInterval);
-    inputField.disabled = true;
+            this.boardEl.appendChild(columnDiv);
+        });
 
-    controlBtn.textContent = "Play Again";
-    controlBtn.classList.remove('give-up');
+        this.bindEvents();
+    }
 
-    if (won) {
-        messageBox.textContent = "MAZEL TOV! You finished the whole Torah!";
-        messageBox.style.color = "green";
-        document.getElementById('timer').style.color = "green";
-    } else {
-        messageBox.textContent = "Time's up!";
-        messageBox.style.color = "red";
+    bindEvents() {
+        if (this._eventsBound) return;
+        this._eventsBound = true;
 
-        TREIASAR.forEach(p => {
-            // Check if ID is in correctAnswers
-            if (!correctAnswers.has(p.id)) {
-                const slot = document.querySelector(`.answer-slot[data-name="${p.id}"]`);
-                if (slot) slot.classList.add('missed');
+        this.inputField.addEventListener('input', () => {
+            if (!this.gameActive) return;
+
+            const match = this.allProphets.find(p => this.matchesProphet(p, this.inputField.value));
+            if (!match) return;
+
+            if (this.correctAnswers.has(match.id)) {
+                this.messageBox.textContent = "Already found that one!";
+                this.messageBox.style.color = "#d97706";
+            } else {
+                this.correctAnswers.add(match.id);
+                this.revealAnswer(match.id);
+                this.inputField.value = "";
+                this.messageBox.textContent = `Nice! Found ${match.display}.`;
+                this.messageBox.style.color = "#15803d";
+                this.scoreDisplay.textContent = `${this.correctAnswers.size} / ${this.allProphets.length}`;
+
+                if (this.correctAnswers.size === this.allProphets.length) {
+                    this.endGame(true);
+                }
+            }
+        });
+
+        this.controlBtn.addEventListener('click', () => {
+            if (this.gameActive) {
+                this.endGame(false);
+            } else {
+                this.startGame();
             }
         });
     }
+
+    startTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+            if (!this.gameActive) return;
+            this.timeRemaining--;
+            this.timerEl.textContent = this.formatTime(Math.max(0, this.timeRemaining));
+
+            if (this.timeRemaining <= 0) {
+                this.endGame(false);
+            }
+        }, 1000);
+    }
+
+    startGame() {
+        this.gameActive = true;
+        this.correctAnswers.clear();
+        this.timeRemaining = this.defaultTimeSeconds;
+
+        this.timerEl.style.color = "";
+        this.timerEl.textContent = this.formatTime(this.timeRemaining);
+        this.scoreDisplay.textContent = `0 / ${this.allProphets.length}`;
+        this.messageBox.textContent = "Clock is ticking — start typing!";
+        this.messageBox.style.color = "#334155";
+        this.inputField.value = "";
+        this.inputField.disabled = false;
+        this.inputField.focus();
+
+        this.controlBtn.textContent = "Give Up";
+        this.controlBtn.classList.add('give-up');
+
+        document.querySelectorAll('.tractate-slot').forEach(slot => {
+            slot.classList.remove('revealed', 'missed');
+        });
+
+        this.startTimer();
+    }
+
+    revealAnswer(id) {
+        const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${id}"]`);
+        if (slot) {
+            slot.classList.add('revealed');
+        }
+    }
+
+    endGame(won) {
+        this.gameActive = false;
+        clearInterval(this.timerInterval);
+        this.inputField.disabled = true;
+
+        this.controlBtn.textContent = "Play Again";
+        this.controlBtn.classList.remove('give-up');
+
+        if (won) {
+            this.messageBox.textContent = "MAZEL TOV! You named all 12 Trei Asar prophets!";
+            this.messageBox.style.color = "#15803d";
+            this.timerEl.style.color = "#15803d";
+        } else {
+            this.messageBox.textContent = this.timeRemaining <= 0 ? "Time's up!" : "Round ended — missed items shown in red.";
+            this.messageBox.style.color = "#dc2626";
+
+            this.allProphets.forEach(item => {
+                if (!this.correctAnswers.has(item.id)) {
+                    const slot = this.boardEl.querySelector(`.tractate-slot[data-name="${item.id}"]`);
+                    if (slot) {
+                        slot.classList.add('missed');
+                    }
+                }
+            });
+        }
+    }
 }
 
-initGame();
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = new TreiAsarQuiz();
+    quiz.initGame();
+});
